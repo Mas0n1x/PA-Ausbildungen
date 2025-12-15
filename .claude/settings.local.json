@@ -5,7 +5,9 @@
       "Bash(move:*)",
       "Bash(npm install)",
       "Bash(ls:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(node convert-icon.js:*)",
+      "Bash(npm install:*)"
     ]
   }
 }

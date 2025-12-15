@@ -12,14 +12,17 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^28.0.0",
-    "electron-builder": "^24.9.1"
+    "electron-builder": "^24.9.1",
+    "icon-gen": "^5.0.0",
+    "png-to-ico": "^3.0.1"
   },
   "build": {
     "appId": "com.lspd.pa-pruefungssystem",
     "productName": "LSPD PA Prüfungssystem",
     "win": {
       "target": "portable",
-      "signAndEditExecutable": false
+      "signAndEditExecutable": false,
+      "icon": "icon.ico"
     },
     "portable": {
       "artifactName": "LSPD_PA_Pruefungssystem.exe"

@@ -1,10 +1,14 @@
 # Dependencies
 node_modules/
 
-# Build output
-dist/
+# Build output (aber nicht die finale .exe)
+dist/win-unpacked/
+dist/builder-debug.yml
 build/
 out/
+
+# Die .exe NICHT ignorieren - wird hochgeladen
+!dist/LSPD_PA_Pruefungssystem.exe
 
 # Electron Builder Cache
 .cache/
@@ -24,9 +28,12 @@ desktop.ini
 *.log
 npm-debug.log*
 
-# Lock files (optional - remove if you want to track them)
+# Lock files
 package-lock.json
 
 # Temporary files
 *.tmp
 *.temp
+
+# Icon Generator temp files
+icon-gen-*/
