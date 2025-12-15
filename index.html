@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSPD PA Prüfungssystem</title>
+    <!-- jsPDF für PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #60a5fa;
+            --secondary: #1e293b;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-input: #0f172a;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --glow: rgba(59, 130, 246, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            background-image:
+                radial-gradient(ellipse at top, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+            min-height: 100vh;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .header-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 30px var(--glow));
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { filter: drop-shadow(0 0 20px var(--glow)); }
+            50% { filter: drop-shadow(0 0 40px var(--glow)); }
+        }
+
+        header h1 {
+            color: var(--text);
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+            justify-content: center;
+            padding: 15px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .nav-tab {
+            padding: 14px 28px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-tab:hover {
+            color: var(--text);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .nav-tab.active::before {
+            opacity: 1;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            color: var(--text);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1.4em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .card h3 {
+            color: var(--primary-light);
+            margin: 20px 0 15px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        /* Prüfung Section */
+        .pruefung-section {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .pruefung-section h2 {
+            color: var(--accent);
+            font-size: 1.6em;
+        }
+
+        .pruefung-section h2::before {
+            background: var(--accent);
+        }
+
+        .pruefung-section > p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            padding: 12px 16px;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+
+        /* Fragen Container */
+        .frage-container {
+            margin: 16px 0;
+            padding: 24px;
+            background: var(--bg-dark);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .frage-container:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .frage-container h4 {
+            color: var(--text);
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .frage-container p {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .punkte-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        /* Inputs */
+        .antwort-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.95em;
+            font-family: inherit;
+            margin-top: 12px;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .antwort-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .antwort-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .punkte-input {
+            width: 70px;
+            padding: 10px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .punkte-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .punkte-vergabe {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .punkte-vergabe label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Ergebnis Box */
+        .ergebnis-box {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border: 2px solid var(--success);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ergebnis-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .ergebnis-box h3 {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            color: var(--text);
+            position: relative;
+        }
+
+        .ergebnis-punkte {
+            font-size: 4.5em;
+            font-weight: 700;
+            color: var(--success);
+            text-shadow: 0 0 40px rgba(16, 185, 129, 0.5);
+            position: relative;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .ergebnis-note {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-top: 15px;
+            padding: 12px 35px;
+            border-radius: 30px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .note-bestanden {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
+
+        .note-nicht-bestanden {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+            justify-content: center;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--bg-dark);
+            border-left: 4px solid var(--primary);
+            padding: 18px 22px;
+            margin: 15px 0;
+            border-radius: 0 12px 12px 0;
+            border: 1px solid var(--border);
+            border-left-width: 4px;
+        }
+
+        .info-box.warning {
+            border-left-color: var(--warning);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .info-box.danger {
+            border-left-color: var(--danger);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .info-box.success {
+            border-left-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        /* Code Table */
+        .code-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 15px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .code-table th, .code-table td {
+            padding: 14px 18px;
+            text-align: left;
+        }
+
+        .code-table th {
+            background: var(--bg-dark);
+            color: var(--primary-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        .code-table td {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .code-table tr:hover td {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        /* Praxis Checklist */
+        .praxis-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            margin: 10px 0;
+            background: var(--bg-dark);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .praxis-item:hover {
+            border-color: var(--primary);
+        }
+
+        .praxis-item.checked {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .praxis-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .praxis-checkbox input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: var(--success);
+            border-radius: 6px;
+        }
+
+        .praxis-checkbox label {
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                padding: 12px;
+            }
+
+            .nav-tab {
+                text-align: center;
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .header-logo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .ergebnis-punkte {
+                font-size: 3em;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Notenspiegel */
+        .notenspiegel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .note-item {
+            padding: 18px 15px;
+            text-align: center;
+            border-radius: 12px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .note-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .note-item.highlight {
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid var(--success);
+        }
+
+        .note-zahl {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--primary-light);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .note-item.highlight .note-zahl {
+            color: var(--success);
+        }
+
+        .note-text {
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
+
+        /* Azubi Info */
+        .azubi-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: var(--bg-dark);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .azubi-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .azubi-field label {
+            color: var(--primary-light);
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .azubi-field input {
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .azubi-field input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .azubi-field input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="LSPD_logo.png" alt="LSPD Logo" class="header-logo" onerror="this.style.display='none'">
+            <h1>LSPD PA Prüfungssystem</h1>
+            <p>Police Academy - Junior Officer & Officer Prüfungen</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <div class="nav-tab active" onclick="showTab('junior-pruefung')">Junior Officer Prüfung</div>
+            <div class="nav-tab" onclick="showTab('officer-pruefung')">Officer Prüfung</div>
+            <div class="nav-tab" onclick="showTab('funk')">Funk & Codes</div>
+            <div class="nav-tab" onclick="showTab('einstellungen')">Einstellungen</div>
+        </nav>
+
+        <!-- JUNIOR OFFICER PRÜFUNG TAB -->
+        <div id="junior-pruefung" class="tab-content active">
+            <div class="pruefung-section">
+                <h2>Junior Officer Prüfung</h2>
+                <p>Theorie (52 Punkte) + Praxis (8 Punkte) = 60 Punkte | Bestanden ab 50 Punkte (Note 2)</p>
+
+                <div class="azubi-info">
+                    <div class="azubi-field">
+                        <label>Auszubildender (Name)</label>
+                        <input type="text" id="junior-azubi-name" placeholder="Name des Azubis" onchange="saveJuniorData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Dienstnummer</label>
+                        <input type="text" id="junior-azubi-dn" placeholder="Dienstnummer" onchange="saveJuniorData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Ausbilder (Name)</label>
+                        <input type="text" id="junior-ausbilder-name" placeholder="Name des Ausbilders" onchange="saveJuniorData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Datum</label>
+                        <input type="date" id="junior-datum" onchange="saveJuniorData()">
+                    </div>
+                </div>
+
+                <div class="notenspiegel">
+                    <div class="note-item"><div class="note-zahl">1</div><div class="note-text">55-60 Punkte</div></div>
+                    <div class="note-item highlight"><div class="note-zahl">2</div><div class="note-text">50-54 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">3</div><div class="note-text">45-49 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">4</div><div class="note-text">40-44 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">5</div><div class="note-text">35-39 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">6</div><div class="note-text">&lt;35 Punkte</div></div>
+                </div>
+
+                <h3>THEORIETEIL (52 Punkte)</h3>
+
+                <!-- Frage 1 -->
+                <div class="frage-container">
+                    <h4>Frage 1 <span class="punkte-badge">4 Punkte</span></h4>
+                    <p>Was muss man bei einer Verkehrskontrolle durchführen?</p>
+                    <textarea class="antwort-input" id="junior-q1-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q1-punkte" min="0" max="4" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 4</span>
+                    </div>
+                </div>
+
+                <!-- Frage 2 -->
+                <div class="frage-container">
+                    <h4>Frage 2 <span class="punkte-badge">3 Punkte</span></h4>
+                    <p>Was funke ich als Einsatzleitung?</p>
+                    <textarea class="antwort-input" id="junior-q2-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q2-punkte" min="0" max="3" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 3</span>
+                    </div>
+                </div>
+
+                <!-- Frage 3 -->
+                <div class="frage-container">
+                    <h4>Frage 3 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Wie viele Leute dürfen maximal in eine Streife? Ab welchem Rang darf eine Streife mit Rekrut/Junior Officer gebildet werden?</p>
+                    <textarea class="antwort-input" id="junior-q3-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q3-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 4 -->
+                <div class="frage-container">
+                    <h4>Frage 4 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Was muss man beachten, wenn das LSPD die Judikative übernimmt?</p>
+                    <textarea class="antwort-input" id="junior-q4-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q4-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 5 -->
+                <div class="frage-container">
+                    <h4>Frage 5 <span class="punkte-badge">4 Punkte</span></h4>
+                    <p>Wie verhalte ich mich bei einem Ladenraub, wenn ich als 10-05 gerufen werde?</p>
+                    <textarea class="antwort-input" id="junior-q5-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q5-punkte" min="0" max="4" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 4</span>
+                    </div>
+                </div>
+
+                <!-- Frage 6 -->
+                <div class="frage-container">
+                    <h4>Frage 6 <span class="punkte-badge">4 Punkte</span></h4>
+                    <p>Nenne folgende Funkcodes: 11-99, 10-05, 10-40, 10-08</p>
+                    <textarea class="antwort-input" id="junior-q6-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q6-punkte" min="0" max="4" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 4</span>
+                    </div>
+                </div>
+
+                <!-- Frage 7 -->
+                <div class="frage-container">
+                    <h4>Frage 7 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Worauf muss ich achten, bevor ich einen TV durchsuchen & zum PD bringen darf?</p>
+                    <textarea class="antwort-input" id="junior-q7-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q7-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 8 -->
+                <div class="frage-container">
+                    <h4>Frage 8 <span class="punkte-badge">3 Punkte</span></h4>
+                    <p>Pflichtausrüstung im Dienst?</p>
+                    <textarea class="antwort-input" id="junior-q8-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q8-punkte" min="0" max="3" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 3</span>
+                    </div>
+                </div>
+
+                <!-- Frage 9 -->
+                <div class="frage-container">
+                    <h4>Frage 9 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Wie gehe ich vor, wenn ich einen TV festgenommen habe (DOJ)?</p>
+                    <textarea class="antwort-input" id="junior-q9-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q9-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 10 -->
+                <div class="frage-container">
+                    <h4>Frage 10 <span class="punkte-badge">3 Punkte</span></h4>
+                    <p>Einsatz der Dienstwaffe & Verhältnismäßigkeit?</p>
+                    <textarea class="antwort-input" id="junior-q10-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q10-punkte" min="0" max="3" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 3</span>
+                    </div>
+                </div>
+
+                <!-- Frage 11 -->
+                <div class="frage-container">
+                    <h4>Frage 11 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Wer darf die Funkdisziplin aufheben?</p>
+                    <textarea class="antwort-input" id="junior-q11-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q11-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 12 -->
+                <div class="frage-container">
+                    <h4>Frage 12 <span class="punkte-badge">1 Punkt</span></h4>
+                    <p>Wie oft müssen Rechte vorgelesen werden?</p>
+                    <textarea class="antwort-input" id="junior-q12-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q12-punkte" min="0" max="1" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <!-- Frage 13 -->
+                <div class="frage-container">
+                    <h4>Frage 13 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Ab wann spricht man von einer Geiselnahme?</p>
+                    <textarea class="antwort-input" id="junior-q13-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q13-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 14 -->
+                <div class="frage-container">
+                    <h4>Frage 14 <span class="punkte-badge">1 Punkt</span></h4>
+                    <p>Was muss ich im Funk durchgeben, wenn ich auf Streife fahre?</p>
+                    <textarea class="antwort-input" id="junior-q14-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q14-punkte" min="0" max="1" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <!-- Frage 15 -->
+                <div class="frage-container">
+                    <h4>Frage 15 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Wichtige Infos bei 11-90 oder 11-99?</p>
+                    <textarea class="antwort-input" id="junior-q15-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q15-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 16 -->
+                <div class="frage-container">
+                    <h4>Frage 16 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Welche Anforderungen gelten für Fahrzeuge, die im Streifendienst eingesetzt werden?</p>
+                    <textarea class="antwort-input" id="junior-q16-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q16-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 17 -->
+                <div class="frage-container">
+                    <h4>Frage 17 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Wann ist die Dienstpflicht?</p>
+                    <textarea class="antwort-input" id="junior-q17-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q17-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 18 -->
+                <div class="frage-container">
+                    <h4>Frage 18 <span class="punkte-badge">1 Punkt</span></h4>
+                    <p>Wo werden Nagelbänder und Barrikaden platziert?</p>
+                    <textarea class="antwort-input" id="junior-q18-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q18-punkte" min="0" max="1" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <!-- Frage 19 -->
+                <div class="frage-container">
+                    <h4>Frage 19 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Was ist beim Anlegen der Handschellen eines Tatverdächtigen zu beachten?</p>
+                    <textarea class="antwort-input" id="junior-q19-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q19-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Frage 20 -->
+                <div class="frage-container">
+                    <h4>Frage 20 <span class="punkte-badge">1 Punkt</span></h4>
+                    <p>Stärkste Waffe im Dienst zur Deeskalation?</p>
+                    <textarea class="antwort-input" id="junior-q20-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q20-punkte" min="0" max="1" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <!-- Frage 21 -->
+                <div class="frage-container">
+                    <h4>Frage 21 <span class="punkte-badge">4 Punkte</span></h4>
+                    <p>Erläutern Sie die Funkcodes: Code 5, Code 7, Code 2, 11-90</p>
+                    <textarea class="antwort-input" id="junior-q21-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q21-punkte" min="0" max="4" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 4</span>
+                    </div>
+                </div>
+
+                <!-- Frage 22 -->
+                <div class="frage-container">
+                    <h4>Frage 22 <span class="punkte-badge">1 Punkt</span></h4>
+                    <p>Wann darf auf Reifen geschossen werden?</p>
+                    <textarea class="antwort-input" id="junior-q22-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q22-punkte" min="0" max="1" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <!-- Frage 23 -->
+                <div class="frage-container">
+                    <h4>Frage 23 <span class="punkte-badge">2 Punkte</span></h4>
+                    <p>Wann wird der Waffenschein entzogen?</p>
+                    <textarea class="antwort-input" id="junior-q23-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="junior-q23-punkte" min="0" max="2" value="0" onchange="berechneJuniorPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <h3>PRAXISTEIL - 10-60 Verkehrskontrolle (8 Punkte)</h3>
+
+                <div class="praxis-item" id="praxis-1">
+                    <div class="praxis-checkbox">
+                        <input type="checkbox" id="junior-praxis-1" onchange="berechneJuniorPunkte()">
+                        <label for="junior-praxis-1">Megafon richtig benutzt</label>
+                    </div>
+                    <span class="punkte-badge">1 Punkt</span>
+                </div>
+
+                <div class="praxis-item" id="praxis-2">
+                    <div class="praxis-checkbox">
+                        <input type="checkbox" id="junior-praxis-2" onchange="berechneJuniorPunkte()">
+                        <label for="junior-praxis-2">10-60 korrekt durchgefunkt</label>
+                    </div>
+                    <span class="punkte-badge">1 Punkt</span>
+                </div>
+
+                <div class="praxis-item" id="praxis-3">
+                    <div class="praxis-checkbox">
+                        <input type="checkbox" id="junior-praxis-3" onchange="berechneJuniorPunkte()">
+                        <label for="junior-praxis-3">Ausgestiegen nach dem TV</label>
+                    </div>
+                    <span class="punkte-badge">1 Punkt</span>
+                </div>
+
+                <div class="praxis-item" id="praxis-4">
+                    <div class="praxis-checkbox">
+                        <input type="checkbox" id="junior-praxis-4" onchange="berechneJuniorPunkte()">
+                        <label for="junior-praxis-4">Führerschein kontrolliert</label>
+                    </div>
+                    <span class="punkte-badge">1 Punkt</span>
+                </div>
+
+                <div class="praxis-item" id="praxis-5">
+                    <div class="praxis-checkbox">
+                        <input type="checkbox" id="junior-praxis-5" onchange="berechneJuniorPunkte()">
+                        <label for="junior-praxis-5">Personalausweis kontrolliert</label>
+                    </div>
+                    <span class="punkte-badge">1 Punkt</span>
+                </div>
+
+                <div class="praxis-item" id="praxis-6">
+                    <div class="praxis-checkbox">
+                        <input type="checkbox" id="junior-praxis-6" onchange="berechneJuniorPunkte()">
+                        <label for="junior-praxis-6">Cop-Net geprüft</label>
+                    </div>
+                    <span class="punkte-badge">1 Punkt</span>
+                </div>
+
+                <div class="praxis-item" id="praxis-7">
+                    <div class="praxis-checkbox">
+                        <input type="checkbox" id="junior-praxis-7" onchange="berechneJuniorPunkte()">
+                        <label for="junior-praxis-7">Rechnungen überprüft</label>
+                    </div>
+                    <span class="punkte-badge">1 Punkt</span>
+                </div>
+
+                <div class="praxis-item" id="praxis-8">
+                    <div class="praxis-checkbox">
+                        <input type="checkbox" id="junior-praxis-8" onchange="berechneJuniorPunkte()">
+                        <label for="junior-praxis-8">Kennzeichen überprüft</label>
+                    </div>
+                    <span class="punkte-badge">1 Punkt</span>
+                </div>
+
+                <!-- Ergebnis Box -->
+                <div class="ergebnis-box" id="junior-ergebnis">
+                    <h3>Prüfungsergebnis</h3>
+                    <div class="ergebnis-punkte" id="junior-gesamt-punkte">0 / 60</div>
+                    <div class="ergebnis-note" id="junior-note">Note: -</div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="berechneJuniorPunkte()">Auswerten</button>
+                    <button class="btn btn-danger" onclick="resetJuniorPruefung()">Prüfung zurücksetzen</button>
+                    <button class="btn btn-primary" onclick="exportJuniorPDF()">Ergebnis exportieren</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- OFFICER PRÜFUNG TAB -->
+        <div id="officer-pruefung" class="tab-content">
+            <div class="pruefung-section">
+                <h2>Officer Prüfung</h2>
+                <p>Verhandlungsführung (10 P.) + Einsatzleitung (10 P.) + Einsatzbericht (10 P.) = 30 Punkte | Bestanden ab 25 Punkte (Note 2)</p>
+
+                <div class="azubi-info">
+                    <div class="azubi-field">
+                        <label>Auszubildender (Name)</label>
+                        <input type="text" id="officer-azubi-name" placeholder="Name des Azubis" onchange="saveOfficerData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Dienstnummer</label>
+                        <input type="text" id="officer-azubi-dn" placeholder="Dienstnummer" onchange="saveOfficerData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Ausbilder (Name)</label>
+                        <input type="text" id="officer-ausbilder-name" placeholder="Name des Ausbilders" onchange="saveOfficerData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Datum</label>
+                        <input type="date" id="officer-datum" onchange="saveOfficerData()">
+                    </div>
+                </div>
+
+                <div class="notenspiegel">
+                    <div class="note-item"><div class="note-zahl">1</div><div class="note-text">28-30 Punkte</div></div>
+                    <div class="note-item highlight"><div class="note-zahl">2</div><div class="note-text">25-27 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">3</div><div class="note-text">22-24 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">4</div><div class="note-text">19-21 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">5</div><div class="note-text">16-18 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">6</div><div class="note-text">&lt;15 Punkte</div></div>
+                </div>
+
+                <h3>PRAXISTEIL: VERHANDLUNGSFÜHRUNG (10 Punkte)</h3>
+
+                <div class="frage-container">
+                    <h4>1. Ruhiges und kontrolliertes Auftreten gegenüber Geiselnehmern <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-v1-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-v1-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>2. Zielgerichtete Gesprächsführung mit klarer Verhandlungsstrategie <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-v2-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-v2-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>3. Richtiges Einschätzen und Priorisieren der Forderungen <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-v3-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-v3-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>4. Absicherung der Geiseln durch Kommunikation <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-v4-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-v4-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>5. Eigenmächtige Entscheidungen - notfalls Rücksprache <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-v5-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-v5-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <h3>PRAXISTEIL: EINSATZLEITUNG (10 Punkte)</h3>
+
+                <div class="frage-container">
+                    <h4>1. Übersichtliche Lageeinschätzung & Weitergabe im Funk <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-e1-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-e1-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>2. Koordination der Einheiten <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-e2-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-e2-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>3. Klare Befehlskette & gezielte Zuweisung von Aufgaben <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-e3-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-e3-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>4. Strukturierte Kommunikation während des Einsatzes <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-e4-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-e4-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>5. Einsatz korrekt abgeschlossen und allen mitgeteilt <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-e5-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-e5-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <h3>THEORIETEIL: EINSATZBERICHT (10 Punkte)</h3>
+
+                <div class="frage-container">
+                    <h4>1. Vorlage für Einsatzbericht verwendet <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-b1-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-b1-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>2. Korrekte Daten von Einsatzleitung & Verhandlungsführung <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-b2-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-b2-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>3. Vorfallsbeschreibung korrekt dokumentiert <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-b3-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-b3-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>4. Zeugen sowie Täter im Einsatzbericht dokumentiert <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-b4-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-b4-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>5. Einsatzbericht korrekt mit Behörden geteilt <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-b5-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-b5-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <!-- Ergebnis Box -->
+                <div class="ergebnis-box" id="officer-ergebnis">
+                    <h3>Prüfungsergebnis</h3>
+                    <div class="ergebnis-punkte" id="officer-gesamt-punkte">0 / 30</div>
+                    <div class="ergebnis-note" id="officer-note">Note: -</div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="berechneOfficerPunkte()">Auswerten</button>
+                    <button class="btn btn-danger" onclick="resetOfficerPruefung()">Prüfung zurücksetzen</button>
+                    <button class="btn btn-primary" onclick="exportOfficerPDF()">Ergebnis exportieren</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FUNK & CODES TAB -->
+        <div id="funk" class="tab-content">
+            <div class="card">
+                <h2>NATO-Alphabet</h2>
+                <table class="code-table">
+                    <tr><th>Buchstabe</th><th>Wort</th><th>Buchstabe</th><th>Wort</th></tr>
+                    <tr><td>A</td><td>Anton</td><td>N</td><td>Nordpol</td></tr>
+                    <tr><td>B</td><td>Berta</td><td>O</td><td>Otto</td></tr>
+                    <tr><td>C</td><td>Cäsar</td><td>P</td><td>Paula</td></tr>
+                    <tr><td>D</td><td>Dora</td><td>Q</td><td>Quelle</td></tr>
+                    <tr><td>E</td><td>Emil</td><td>R</td><td>Richard</td></tr>
+                    <tr><td>F</td><td>Friedrich</td><td>S</td><td>Samuel</td></tr>
+                    <tr><td>G</td><td>Gustav</td><td>T</td><td>Theodor</td></tr>
+                    <tr><td>H</td><td>Heinrich</td><td>U</td><td>Ulrich</td></tr>
+                    <tr><td>I</td><td>Ida</td><td>V</td><td>Viktor</td></tr>
+                    <tr><td>J</td><td>Julius</td><td>W</td><td>Wilhelm</td></tr>
+                    <tr><td>K</td><td>Kaufmann</td><td>X</td><td>Xanthippe</td></tr>
+                    <tr><td>L</td><td>Ludwig</td><td>Y</td><td>Ypsilon</td></tr>
+                    <tr><td>M</td><td>Martha</td><td>Z</td><td>Zeppelin</td></tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Standard 10-Codes</h2>
+                <table class="code-table">
+                    <tr><th>Code</th><th>Bedeutung</th></tr>
+                    <tr><td>10-01</td><td>Dienstantritt</td></tr>
+                    <tr><td>10-02</td><td>Dienstaustritt</td></tr>
+                    <tr><td>10-04</td><td>Positiv/Verstanden</td></tr>
+                    <tr><td>10-05</td><td>Verstärkung benötigt</td></tr>
+                    <tr><td>10-07</td><td>Helikopter benötigt</td></tr>
+                    <tr><td>10-08</td><td>TV im SG/Zellentrakt</td></tr>
+                    <tr><td>10-12</td><td>Statusabfrage</td></tr>
+                    <tr><td>10-20</td><td>Standortabfrage</td></tr>
+                    <tr><td>10-40</td><td>Funkspruch wiederholen</td></tr>
+                    <tr><td>10-60</td><td>Allgemeine Verkehrskontrolle</td></tr>
+                    <tr><td>10-80</td><td>Verfolgungsjagd</td></tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Notfall-Codes</h2>
+                <div class="info-box danger">
+                    <strong>11-90:</strong> Officer unter Bedrängnis<br>
+                    <strong>11-99:</strong> Officer unter Beschuss<br>
+                    <strong>Point Red:</strong> Sammelpunkt
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Streifen-Codes</h2>
+                <table class="code-table">
+                    <tr><th>Code</th><th>Bedeutung</th></tr>
+                    <tr><td>Code 1</td><td>Einsatzbeginn</td></tr>
+                    <tr><td>Code 2</td><td>Anfahrt ohne Signale</td></tr>
+                    <tr><td>Code 3</td><td>Anfahrt mit Signalen</td></tr>
+                    <tr><td>Code 4</td><td>Einsatz beendet</td></tr>
+                    <tr><td>Code 5</td><td>Auf Ermittlung</td></tr>
+                    <tr><td>Code 6</td><td>PD-Anfahrt</td></tr>
+                    <tr><td>Code 7</td><td>SG-Anfahrt</td></tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Funkfrequenzen</h2>
+                <table class="code-table">
+                    <tr><th>FREQ</th><th>Zuständig</th></tr>
+                    <tr><td>FREQ 1</td><td>Police Department</td></tr>
+                    <tr><td>FREQ 2</td><td>FIB</td></tr>
+                    <tr><td>FREQ 3</td><td>Medical Department</td></tr>
+                    <tr><td>FREQ 4</td><td>Fire Department</td></tr>
+                    <tr><td>FREQ 5</td><td>Ausbildungsfunk</td></tr>
+                    <tr><td>FREQ 6</td><td>Army</td></tr>
+                    <tr><td>FREQ 7</td><td>Sheriff Department</td></tr>
+                    <tr><td>FREQ 9</td><td>U.S. Marshalls</td></tr>
+                    <tr><td>FREQ 10</td><td>Einsatzfunk Räuberei</td></tr>
+                    <tr><td>FREQ 12</td><td>Anwaltskammer</td></tr>
+                    <tr><td>FREQ 14</td><td>Navy</td></tr>
+                    <tr><td>FREQ 21</td><td>Department of Justice</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- EINSTELLUNGEN TAB -->
+        <div id="einstellungen" class="tab-content">
+            <div class="card">
+                <h2>Einstellungen & Datenverwaltung</h2>
+
+                <div class="info-box warning">
+                    <strong>Hinweis:</strong> Alle Daten werden lokal in deinem Browser gespeichert (LocalStorage).
+                    Beim Löschen der Browserdaten gehen auch diese Daten verloren.
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="exportAllData()">Alle Daten exportieren</button>
+                    <button class="btn btn-warning" onclick="importData()">Daten importieren</button>
+                    <button class="btn btn-danger" onclick="resetAllData()">ALLE Daten löschen</button>
+                </div>
+
+                <input type="file" id="importFile" style="display:none" accept=".json" onchange="handleImport(event)">
+            </div>
+
+            <div class="card">
+                <h2>Über dieses Programm</h2>
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+                    <img src="LSPD_logo.png" alt="LSPD" style="width: 60px; height: 60px; border-radius: 10px;" onerror="this.style.display='none'">
+                    <div>
+                        <p style="font-size: 1.2em; font-weight: 600; color: var(--primary-light);">LSPD PA Prüfungssystem</p>
+                        <p style="color: var(--text-muted);">Version 2.0</p>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+                    <div class="info-box success" style="margin: 0;">
+                        <strong>Junior Officer Prüfung</strong>
+                        <p style="font-size: 0.85em; margin-top: 5px;">60 Punkte System</p>
+                    </div>
+                    <div class="info-box success" style="margin: 0;">
+                        <strong>Officer Prüfung</strong>
+                        <p style="font-size: 0.85em; margin-top: 5px;">30 Punkte System</p>
+                    </div>
+                    <div class="info-box" style="margin: 0;">
+                        <strong>Funk & Codes</strong>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Nachschlagewerk</p>
+                    </div>
+                    <div class="info-box" style="margin: 0;">
+                        <strong>Auto-Speicherung</strong>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Alle Eingaben lokal</p>
+                    </div>
+                    <div class="info-box warning" style="margin: 0;">
+                        <strong>PDF Export</strong>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Professionelle Zertifikate</p>
+                    </div>
+                    <div class="info-box" style="margin: 0;">
+                        <strong>Daten-Backup</strong>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Export/Import JSON</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>LSPD Police Academy Prüfungssystem v2.0</p>
+            <p style="margin-top: 5px; font-size: 0.8em;">Entwickelt für die LSPD Ausbildungsabteilung</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab Navigation
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Beim Laden
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllData();
+        });
+
+        // Junior Prüfung
+        function saveJuniorData() {
+            const data = {
+                azubiName: document.getElementById('junior-azubi-name').value,
+                azubiDN: document.getElementById('junior-azubi-dn').value,
+                ausbilderName: document.getElementById('junior-ausbilder-name').value,
+                datum: document.getElementById('junior-datum').value,
+                antworten: {},
+                punkte: {}
+            };
+
+            for (let i = 1; i <= 23; i++) {
+                data.antworten['q' + i] = document.getElementById('junior-q' + i + '-antwort').value;
+                data.punkte['q' + i] = document.getElementById('junior-q' + i + '-punkte').value;
+            }
+
+            for (let i = 1; i <= 8; i++) {
+                data.punkte['praxis' + i] = document.getElementById('junior-praxis-' + i).checked;
+            }
+
+            localStorage.setItem('juniorPruefung', JSON.stringify(data));
+        }
+
+        function berechneJuniorPunkte() {
+            let theoriePunkte = 0;
+            let praxisPunkte = 0;
+
+            // Theorie
+            for (let i = 1; i <= 23; i++) {
+                const punkte = parseInt(document.getElementById('junior-q' + i + '-punkte').value) || 0;
+                theoriePunkte += punkte;
+            }
+
+            // Praxis
+            for (let i = 1; i <= 8; i++) {
+                if (document.getElementById('junior-praxis-' + i).checked) {
+                    praxisPunkte++;
+                    document.getElementById('praxis-' + i).classList.add('checked');
+                } else {
+                    document.getElementById('praxis-' + i).classList.remove('checked');
+                }
+            }
+
+            const gesamt = theoriePunkte + praxisPunkte;
+            document.getElementById('junior-gesamt-punkte').textContent = gesamt + ' / 60';
+
+            // Note berechnen
+            let note, noteText, bestanden;
+            if (gesamt >= 55) { note = 1; noteText = 'sehr gut'; bestanden = true; }
+            else if (gesamt >= 50) { note = 2; noteText = 'gut'; bestanden = true; }
+            else if (gesamt >= 45) { note = 3; noteText = 'befriedigend'; bestanden = false; }
+            else if (gesamt >= 40) { note = 4; noteText = 'ausreichend'; bestanden = false; }
+            else if (gesamt >= 35) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
+            else { note = 6; noteText = 'ungenügend'; bestanden = false; }
+
+            const noteDiv = document.getElementById('junior-note');
+            noteDiv.textContent = 'Note: ' + note + ' (' + noteText + ') - ' + (bestanden ? 'BESTANDEN' : 'NICHT BESTANDEN');
+            noteDiv.className = 'ergebnis-note ' + (bestanden ? 'note-bestanden' : 'note-nicht-bestanden');
+
+            saveJuniorData();
+        }
+
+        function resetJuniorPruefung() {
+            if (confirm('Wirklich alle Junior Officer Prüfungsdaten zurücksetzen?')) {
+                localStorage.removeItem('juniorPruefung');
+
+                document.getElementById('junior-azubi-name').value = '';
+                document.getElementById('junior-azubi-dn').value = '';
+                document.getElementById('junior-ausbilder-name').value = '';
+                document.getElementById('junior-datum').value = '';
+
+                for (let i = 1; i <= 23; i++) {
+                    document.getElementById('junior-q' + i + '-antwort').value = '';
+                    document.getElementById('junior-q' + i + '-punkte').value = 0;
+                }
+
+                for (let i = 1; i <= 8; i++) {
+                    document.getElementById('junior-praxis-' + i).checked = false;
+                }
+
+                berechneJuniorPunkte();
+            }
+        }
+
+        // Officer Prüfung
+        function saveOfficerData() {
+            const data = {
+                azubiName: document.getElementById('officer-azubi-name').value,
+                azubiDN: document.getElementById('officer-azubi-dn').value,
+                ausbilderName: document.getElementById('officer-ausbilder-name').value,
+                datum: document.getElementById('officer-datum').value,
+                notizen: {},
+                punkte: {}
+            };
+
+            // Verhandlung
+            for (let i = 1; i <= 5; i++) {
+                data.notizen['v' + i] = document.getElementById('officer-v' + i + '-notizen').value;
+                data.punkte['v' + i] = document.getElementById('officer-v' + i + '-punkte').value;
+            }
+
+            // Einsatzleitung
+            for (let i = 1; i <= 5; i++) {
+                data.notizen['e' + i] = document.getElementById('officer-e' + i + '-notizen').value;
+                data.punkte['e' + i] = document.getElementById('officer-e' + i + '-punkte').value;
+            }
+
+            // Bericht
+            for (let i = 1; i <= 5; i++) {
+                data.notizen['b' + i] = document.getElementById('officer-b' + i + '-notizen').value;
+                data.punkte['b' + i] = document.getElementById('officer-b' + i + '-punkte').value;
+            }
+
+            localStorage.setItem('officerPruefung', JSON.stringify(data));
+        }
+
+        function berechneOfficerPunkte() {
+            let gesamt = 0;
+
+            // Verhandlung
+            for (let i = 1; i <= 5; i++) {
+                gesamt += parseInt(document.getElementById('officer-v' + i + '-punkte').value) || 0;
+            }
+
+            // Einsatzleitung
+            for (let i = 1; i <= 5; i++) {
+                gesamt += parseInt(document.getElementById('officer-e' + i + '-punkte').value) || 0;
+            }
+
+            // Bericht
+            for (let i = 1; i <= 5; i++) {
+                gesamt += parseInt(document.getElementById('officer-b' + i + '-punkte').value) || 0;
+            }
+
+            document.getElementById('officer-gesamt-punkte').textContent = gesamt + ' / 30';
+
+            // Note berechnen
+            let note, noteText, bestanden;
+            if (gesamt >= 28) { note = 1; noteText = 'sehr gut'; bestanden = true; }
+            else if (gesamt >= 25) { note = 2; noteText = 'gut'; bestanden = true; }
+            else if (gesamt >= 22) { note = 3; noteText = 'befriedigend'; bestanden = false; }
+            else if (gesamt >= 19) { note = 4; noteText = 'ausreichend'; bestanden = false; }
+            else if (gesamt >= 16) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
+            else { note = 6; noteText = 'ungenügend'; bestanden = false; }
+
+            const noteDiv = document.getElementById('officer-note');
+            noteDiv.textContent = 'Note: ' + note + ' (' + noteText + ') - ' + (bestanden ? 'BESTANDEN' : 'NICHT BESTANDEN');
+            noteDiv.className = 'ergebnis-note ' + (bestanden ? 'note-bestanden' : 'note-nicht-bestanden');
+
+            saveOfficerData();
+        }
+
+        function resetOfficerPruefung() {
+            if (confirm('Wirklich alle Officer Prüfungsdaten zurücksetzen?')) {
+                localStorage.removeItem('officerPruefung');
+
+                document.getElementById('officer-azubi-name').value = '';
+                document.getElementById('officer-azubi-dn').value = '';
+                document.getElementById('officer-ausbilder-name').value = '';
+                document.getElementById('officer-datum').value = '';
+
+                for (let i = 1; i <= 5; i++) {
+                    document.getElementById('officer-v' + i + '-notizen').value = '';
+                    document.getElementById('officer-v' + i + '-punkte').value = 0;
+                    document.getElementById('officer-e' + i + '-notizen').value = '';
+                    document.getElementById('officer-e' + i + '-punkte').value = 0;
+                    document.getElementById('officer-b' + i + '-notizen').value = '';
+                    document.getElementById('officer-b' + i + '-punkte').value = 0;
+                }
+
+                berechneOfficerPunkte();
+            }
+        }
+
+        // Daten laden
+        function loadAllData() {
+            // Junior Prüfung laden
+            const juniorData = localStorage.getItem('juniorPruefung');
+            if (juniorData) {
+                const data = JSON.parse(juniorData);
+                document.getElementById('junior-azubi-name').value = data.azubiName || '';
+                document.getElementById('junior-azubi-dn').value = data.azubiDN || '';
+                document.getElementById('junior-ausbilder-name').value = data.ausbilderName || '';
+                document.getElementById('junior-datum').value = data.datum || '';
+
+                if (data.antworten) {
+                    for (let i = 1; i <= 23; i++) {
+                        document.getElementById('junior-q' + i + '-antwort').value = data.antworten['q' + i] || '';
+                    }
+                }
+
+                if (data.punkte) {
+                    for (let i = 1; i <= 23; i++) {
+                        document.getElementById('junior-q' + i + '-punkte').value = data.punkte['q' + i] || 0;
+                    }
+                    for (let i = 1; i <= 8; i++) {
+                        document.getElementById('junior-praxis-' + i).checked = data.punkte['praxis' + i] || false;
+                    }
+                }
+
+                berechneJuniorPunkte();
+            }
+
+            // Officer Prüfung laden
+            const officerData = localStorage.getItem('officerPruefung');
+            if (officerData) {
+                const data = JSON.parse(officerData);
+                document.getElementById('officer-azubi-name').value = data.azubiName || '';
+                document.getElementById('officer-azubi-dn').value = data.azubiDN || '';
+                document.getElementById('officer-ausbilder-name').value = data.ausbilderName || '';
+                document.getElementById('officer-datum').value = data.datum || '';
+
+                if (data.notizen && data.punkte) {
+                    for (let i = 1; i <= 5; i++) {
+                        document.getElementById('officer-v' + i + '-notizen').value = data.notizen['v' + i] || '';
+                        document.getElementById('officer-v' + i + '-punkte').value = data.punkte['v' + i] || 0;
+                        document.getElementById('officer-e' + i + '-notizen').value = data.notizen['e' + i] || '';
+                        document.getElementById('officer-e' + i + '-punkte').value = data.punkte['e' + i] || 0;
+                        document.getElementById('officer-b' + i + '-notizen').value = data.notizen['b' + i] || '';
+                        document.getElementById('officer-b' + i + '-punkte').value = data.punkte['b' + i] || 0;
+                    }
+                }
+
+                berechneOfficerPunkte();
+            }
+        }
+
+        // Export Funktionen
+        function exportAllData() {
+            const data = {
+                juniorPruefung: localStorage.getItem('juniorPruefung'),
+                officerPruefung: localStorage.getItem('officerPruefung'),
+                exportDate: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'LSPD_PA_Backup_' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+        }
+
+        function importData() {
+            document.getElementById('importFile').click();
+        }
+
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+
+                        if (data.juniorPruefung) {
+                            localStorage.setItem('juniorPruefung', data.juniorPruefung);
+                        }
+
+                        if (data.officerPruefung) {
+                            localStorage.setItem('officerPruefung', data.officerPruefung);
+                        }
+
+                        loadAllData();
+                        alert('Daten erfolgreich importiert!');
+                    } catch (err) {
+                        alert('Fehler beim Importieren: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function resetAllData() {
+            if (confirm('ACHTUNG: Wirklich ALLE Daten löschen? Dies kann nicht rückgängig gemacht werden!')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        // LSPD Logo - wird beim Laden als Base64 konvertiert
+        let LSPD_LOGO = null;
+
+        // Logo laden und als Base64 speichern
+        function loadLogoAsBase64() {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                LSPD_LOGO = canvas.toDataURL('image/png');
+            };
+            img.src = 'LSPD_logo.png';
+        }
+
+        // Logo beim Start laden
+        loadLogoAsBase64();
+
+        // PDF Export für Junior Officer Prüfung
+        function exportJuniorPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const data = JSON.parse(localStorage.getItem('juniorPruefung') || '{}');
+
+            // Logo hinzufügen
+            try {
+                doc.addImage(LSPD_LOGO, 'PNG', 80, 10, 50, 50);
+            } catch(e) {
+                console.log('Logo konnte nicht geladen werden');
+            }
+
+            // Titel
+            doc.setFontSize(20);
+            doc.setTextColor(74, 144, 217);
+            doc.text('LSPD POLICE ACADEMY', 105, 70, {align: 'center'});
+
+            doc.setFontSize(16);
+            doc.setTextColor(0, 0, 0);
+            doc.text('Junior Officer Prüfung - Ergebnis', 105, 80, {align: 'center'});
+
+            // Trennlinie
+            doc.setDrawColor(74, 144, 217);
+            doc.setLineWidth(0.5);
+            doc.line(20, 85, 190, 85);
+
+            // Kandidaten-Info
+            doc.setFontSize(11);
+            let y = 95;
+            doc.text('Auszubildender: ' + (data.azubiName || '-'), 20, y);
+            doc.text('Dienstnummer: ' + (data.azubiDN || '-'), 120, y);
+            y += 8;
+            doc.text('Ausbilder: ' + (data.ausbilderName || '-'), 20, y);
+            doc.text('Datum: ' + (data.datum || '-'), 120, y);
+
+            // Trennlinie
+            y += 10;
+            doc.line(20, y, 190, y);
+
+            // Theorie
+            y += 10;
+            doc.setFontSize(14);
+            doc.setTextColor(74, 144, 217);
+            doc.text('THEORIETEIL', 20, y);
+
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            const maxPunkte = [4,3,2,2,4,4,2,3,2,3,2,1,2,1,2,2,2,1,2,1,4,1,2];
+            let theorie = 0;
+            y += 8;
+
+            for (let i = 1; i <= 23; i++) {
+                const p = parseInt(data.punkte?.['q' + i]) || 0;
+                theorie += p;
+                doc.text('Frage ' + i + ': ' + p + '/' + maxPunkte[i-1] + ' P.', 20 + ((i-1) % 4) * 45, y);
+                if (i % 4 === 0) y += 6;
+            }
+
+            // Praxis
+            y += 15;
+            doc.setFontSize(14);
+            doc.setTextColor(74, 144, 217);
+            doc.text('PRAXISTEIL - Verkehrskontrolle', 20, y);
+
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            let praxis = 0;
+            const praxisItems = ['Megafon benutzt', 'Funkspruch korrekt', 'Aussteigen nach TV', 'Führerschein geprüft', 'Personalausweis geprüft', 'Cop-Net geprüft', 'Rechnungen geprüft', 'Kennzeichen geprüft'];
+            y += 8;
+
+            for (let i = 1; i <= 8; i++) {
+                const checked = data.punkte?.['praxis' + i] ? 1 : 0;
+                praxis += checked;
+                const status = checked ? '[X]' : '[ ]';
+                doc.text(status + ' ' + praxisItems[i-1], 20 + ((i-1) % 2) * 90, y);
+                if (i % 2 === 0) y += 6;
+            }
+
+            // Ergebnis Box
+            const gesamt = theorie + praxis;
+            y += 15;
+
+            // Note berechnen
+            let note, noteText, bestanden;
+            if (gesamt >= 55) { note = 1; noteText = 'sehr gut'; bestanden = true; }
+            else if (gesamt >= 50) { note = 2; noteText = 'gut'; bestanden = true; }
+            else if (gesamt >= 45) { note = 3; noteText = 'befriedigend'; bestanden = false; }
+            else if (gesamt >= 40) { note = 4; noteText = 'ausreichend'; bestanden = false; }
+            else if (gesamt >= 35) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
+            else { note = 6; noteText = 'ungenügend'; bestanden = false; }
+
+            // Ergebnis-Rahmen
+            doc.setDrawColor(bestanden ? 46 : 231, bestanden ? 204 : 76, bestanden ? 113 : 60);
+            doc.setFillColor(bestanden ? 240 : 255, bestanden ? 255 : 240, bestanden ? 240 : 240);
+            doc.roundedRect(20, y, 170, 45, 3, 3, 'FD');
+
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            y += 12;
+            doc.text('PRÜFUNGSERGEBNIS', 105, y, {align: 'center'});
+
+            doc.setFontSize(12);
+            y += 10;
+            doc.text('Theorie: ' + theorie + '/52 Punkte', 40, y);
+            doc.text('Praxis: ' + praxis + '/8 Punkte', 130, y);
+
+            y += 10;
+            doc.setFontSize(16);
+            doc.text('GESAMT: ' + gesamt + '/60 Punkte', 105, y, {align: 'center'});
+
+            y += 10;
+            doc.setTextColor(bestanden ? 46 : 231, bestanden ? 204 : 76, bestanden ? 113 : 60);
+            doc.setFontSize(14);
+            doc.text('Note: ' + note + ' (' + noteText + ') - ' + (bestanden ? 'BESTANDEN' : 'NICHT BESTANDEN'), 105, y, {align: 'center'});
+
+            // Fußzeile
+            doc.setFontSize(8);
+            doc.setTextColor(128, 128, 128);
+            doc.text('LSPD Police Academy - Prüfungsdokument', 105, 285, {align: 'center'});
+
+            // PDF speichern
+            doc.save('Junior_Prüfung_' + (data.azubiName || 'Unbekannt').replace(/\s/g, '_') + '_' + (data.datum || 'Datum') + '.pdf');
+        }
+
+        // PDF Export für Officer Prüfung
+        function exportOfficerPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const data = JSON.parse(localStorage.getItem('officerPruefung') || '{}');
+
+            // Logo hinzufügen
+            try {
+                doc.addImage(LSPD_LOGO, 'PNG', 80, 10, 50, 50);
+            } catch(e) {
+                console.log('Logo konnte nicht geladen werden');
+            }
+
+            // Titel
+            doc.setFontSize(20);
+            doc.setTextColor(74, 144, 217);
+            doc.text('LSPD POLICE ACADEMY', 105, 70, {align: 'center'});
+
+            doc.setFontSize(16);
+            doc.setTextColor(0, 0, 0);
+            doc.text('Officer Prüfung - Ergebnis', 105, 80, {align: 'center'});
+
+            // Trennlinie
+            doc.setDrawColor(74, 144, 217);
+            doc.setLineWidth(0.5);
+            doc.line(20, 85, 190, 85);
+
+            // Kandidaten-Info
+            doc.setFontSize(11);
+            let y = 95;
+            doc.text('Auszubildender: ' + (data.azubiName || '-'), 20, y);
+            doc.text('Dienstnummer: ' + (data.azubiDN || '-'), 120, y);
+            y += 8;
+            doc.text('Ausbilder: ' + (data.ausbilderName || '-'), 20, y);
+            doc.text('Datum: ' + (data.datum || '-'), 120, y);
+
+            // Trennlinie
+            y += 10;
+            doc.line(20, y, 190, y);
+
+            let verhandlung = 0, einsatz = 0, bericht = 0;
+
+            // Verhandlungsführung
+            y += 10;
+            doc.setFontSize(12);
+            doc.setTextColor(74, 144, 217);
+            doc.text('VERHANDLUNGSFÜHRUNG', 20, y);
+
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            const vItems = ['Ruhiges Auftreten', 'Gesprächsführung', 'Forderungspriorisierung', 'Geiselsicherung', 'Rücksprache'];
+            y += 7;
+            for (let i = 1; i <= 5; i++) {
+                const p = parseInt(data.punkte?.['v' + i]) || 0;
+                verhandlung += p;
+                doc.text(vItems[i-1] + ': ' + p + '/2 P.', 20, y);
+                y += 5;
+            }
+
+            // Einsatzleitung
+            y += 5;
+            doc.setFontSize(12);
+            doc.setTextColor(74, 144, 217);
+            doc.text('EINSATZLEITUNG', 20, y);
+
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            const eItems = ['Lageeinschätzung', 'Koordination', 'Befehlskette', 'Kommunikation', 'Einsatzabschluss'];
+            y += 7;
+            for (let i = 1; i <= 5; i++) {
+                const p = parseInt(data.punkte?.['e' + i]) || 0;
+                einsatz += p;
+                doc.text(eItems[i-1] + ': ' + p + '/2 P.', 20, y);
+                y += 5;
+            }
+
+            // Einsatzbericht
+            y += 5;
+            doc.setFontSize(12);
+            doc.setTextColor(74, 144, 217);
+            doc.text('EINSATZBERICHT', 20, y);
+
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            const bItems = ['Vorlage verwendet', 'Korrekte Daten', 'Vorfallsbeschreibung', 'Dokumentation', 'Behördenteilung'];
+            y += 7;
+            for (let i = 1; i <= 5; i++) {
+                const p = parseInt(data.punkte?.['b' + i]) || 0;
+                bericht += p;
+                doc.text(bItems[i-1] + ': ' + p + '/2 P.', 20, y);
+                y += 5;
+            }
+
+            // Ergebnis
+            const gesamt = verhandlung + einsatz + bericht;
+            y += 10;
+
+            // Note berechnen
+            let note, noteText, bestanden;
+            if (gesamt >= 28) { note = 1; noteText = 'sehr gut'; bestanden = true; }
+            else if (gesamt >= 25) { note = 2; noteText = 'gut'; bestanden = true; }
+            else if (gesamt >= 22) { note = 3; noteText = 'befriedigend'; bestanden = false; }
+            else if (gesamt >= 19) { note = 4; noteText = 'ausreichend'; bestanden = false; }
+            else if (gesamt >= 16) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
+            else { note = 6; noteText = 'ungenügend'; bestanden = false; }
+
+            // Ergebnis-Rahmen
+            doc.setDrawColor(bestanden ? 46 : 231, bestanden ? 204 : 76, bestanden ? 113 : 60);
+            doc.setFillColor(bestanden ? 240 : 255, bestanden ? 255 : 240, bestanden ? 240 : 240);
+            doc.roundedRect(20, y, 170, 50, 3, 3, 'FD');
+
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            y += 12;
+            doc.text('PRÜFUNGSERGEBNIS', 105, y, {align: 'center'});
+
+            doc.setFontSize(11);
+            y += 10;
+            doc.text('Verhandlung: ' + verhandlung + '/10 P.', 30, y);
+            doc.text('Einsatzleitung: ' + einsatz + '/10 P.', 80, y);
+            doc.text('Bericht: ' + bericht + '/10 P.', 140, y);
+
+            y += 10;
+            doc.setFontSize(16);
+            doc.text('GESAMT: ' + gesamt + '/30 Punkte', 105, y, {align: 'center'});
+
+            y += 10;
+            doc.setTextColor(bestanden ? 46 : 231, bestanden ? 204 : 76, bestanden ? 113 : 60);
+            doc.setFontSize(14);
+            doc.text('Note: ' + note + ' (' + noteText + ') - ' + (bestanden ? 'BESTANDEN' : 'NICHT BESTANDEN'), 105, y, {align: 'center'});
+
+            // Fußzeile
+            doc.setFontSize(8);
+            doc.setTextColor(128, 128, 128);
+            doc.text('LSPD Police Academy - Prüfungsdokument', 105, 285, {align: 'center'});
+
+            // PDF speichern
+            doc.save('Officer_Prüfung_' + (data.azubiName || 'Unbekannt').replace(/\s/g, '_') + '_' + (data.datum || 'Datum') + '.pdf');
+        }
+    </script>
+</body>
+</html>
