@@ -764,12 +764,13 @@
         <header>
             <img src="LSPD_logo.png" alt="LSPD Logo" class="header-logo" onerror="this.style.display='none'">
             <h1>LSPD PA Prüfungssystem</h1>
-            <p>Police Academy - Junior Officer & Officer Prüfungen</p>
+            <p>Police Academy - Junior Officer, Officer & Wiedereinsteiger Prüfungen</p>
         </header>
 
         <nav class="nav-tabs">
             <div class="nav-tab active" onclick="showTab('junior-pruefung')">Junior Officer Prüfung</div>
             <div class="nav-tab" onclick="showTab('officer-pruefung')">Officer Prüfung</div>
+            <div class="nav-tab" onclick="showTab('wiedereinsteiger-pruefung')">Wiedereinsteiger Prüfung</div>
             <div class="nav-tab" onclick="showTab('funk')">Funk & Codes</div>
             <div class="nav-tab" onclick="showTab('einstellungen')">Einstellungen</div>
         </nav>
@@ -813,7 +814,8 @@
                 <!-- Frage 1 -->
                 <div class="frage-container">
                     <h4>Frage 1 <span class="punkte-badge">4 Punkte</span></h4>
-                    <p>Was muss man bei einer Verkehrskontrolle durchführen?</p>
+                    <p>Was muss man bei einer Verkehrskontrolle beachten?</p>
+                    <div class="info-box">Korrekte Antwort: 10-60 funken mit Streifen Name und Ortsangabe, Warten bis die Person ausgestiegen ist, Ausweis/Führerschein kontrollieren, Akte prüfen</div>
                     <textarea class="antwort-input" id="junior-q1-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -825,7 +827,8 @@
                 <!-- Frage 2 -->
                 <div class="frage-container">
                     <h4>Frage 2 <span class="punkte-badge">3 Punkte</span></h4>
-                    <p>Was funke ich als Einsatzleitung?</p>
+                    <p>Wie sicherst du einen Einsatzort ab?</p>
+                    <div class="info-box">Korrekte Antwort: Infos über TV, Fluchtfahrzeug, Geiseln kurz & informativ funken, Umgebung beachten, klare Befehle geben</div>
                     <textarea class="antwort-input" id="junior-q2-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -838,6 +841,7 @@
                 <div class="frage-container">
                     <h4>Frage 3 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Wie viele Leute dürfen maximal in eine Streife? Ab welchem Rang darf eine Streife mit Rekrut/Junior Officer gebildet werden?</p>
+                    <div class="info-box">Korrekte Antwort: Max. 3 Leute, ab Rang 3 (Officer)</div>
                     <textarea class="antwort-input" id="junior-q3-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -850,6 +854,7 @@
                 <div class="frage-container">
                     <h4>Frage 4 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Was muss man beachten, wenn das LSPD die Judikative übernimmt?</p>
+                    <div class="info-box">Korrekte Antwort: 90% der Haftstrafe, 100% der Geldstrafe</div>
                     <textarea class="antwort-input" id="junior-q4-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -862,6 +867,7 @@
                 <div class="frage-container">
                     <h4>Frage 5 <span class="punkte-badge">4 Punkte</span></h4>
                     <p>Wie verhalte ich mich bei einem Ladenraub, wenn ich als 10-05 gerufen werde?</p>
+                    <div class="info-box">Korrekte Antwort: Anfahrt vorsichtig, keine voreiligen Maßnahmen, Befehle entgegennehmen, Tatort absichern</div>
                     <textarea class="antwort-input" id="junior-q5-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -874,6 +880,7 @@
                 <div class="frage-container">
                     <h4>Frage 6 <span class="punkte-badge">4 Punkte</span></h4>
                     <p>Nenne folgende Funkcodes: 11-99, 10-05, 10-40, 10-08</p>
+                    <div class="info-box">Korrekte Antwort: Officer unter Beschuss, Verstärkung benötigt, Funkspruch wiederholen, TV im SG abarbeiten</div>
                     <textarea class="antwort-input" id="junior-q6-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -886,6 +893,7 @@
                 <div class="frage-container">
                     <h4>Frage 7 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Worauf muss ich achten, bevor ich einen TV durchsuchen & zum PD bringen darf?</p>
+                    <div class="info-box">Korrekte Antwort: Rechte 1x vorlesen, zweite Person als Zeuge dabeihaben</div>
                     <textarea class="antwort-input" id="junior-q7-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -898,6 +906,7 @@
                 <div class="frage-container">
                     <h4>Frage 8 <span class="punkte-badge">3 Punkte</span></h4>
                     <p>Pflichtausrüstung im Dienst?</p>
+                    <div class="info-box">Korrekte Antwort: Schusswaffe, Taser, Schlagstock, Westen, Medi-/Repair Kits, GPS, Handy</div>
                     <textarea class="antwort-input" id="junior-q8-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -910,6 +919,7 @@
                 <div class="frage-container">
                     <h4>Frage 9 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Wie gehe ich vor, wenn ich einen TV festgenommen habe (DOJ)?</p>
+                    <div class="info-box">Korrekte Antwort: DOJ anrufen, Richter abfragen, ggf. Judikative übernehmen</div>
                     <textarea class="antwort-input" id="junior-q9-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -922,6 +932,7 @@
                 <div class="frage-container">
                     <h4>Frage 10 <span class="punkte-badge">3 Punkte</span></h4>
                     <p>Einsatz der Dienstwaffe & Verhältnismäßigkeit?</p>
+                    <div class="info-box">Korrekte Antwort: Kein Einsatz gegen unbewaffnete, kooperative Personen; bevorzugt Taser/Schlagstock</div>
                     <textarea class="antwort-input" id="junior-q10-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -934,6 +945,7 @@
                 <div class="frage-container">
                     <h4>Frage 11 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Wer darf die Funkdisziplin aufheben?</p>
+                    <div class="info-box">Korrekte Antwort: Nur durch Chief oder hohe Leitungsebene</div>
                     <textarea class="antwort-input" id="junior-q11-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -946,6 +958,7 @@
                 <div class="frage-container">
                     <h4>Frage 12 <span class="punkte-badge">1 Punkt</span></h4>
                     <p>Wie oft müssen Rechte vorgelesen werden?</p>
+                    <div class="info-box">Korrekte Antwort: 1x mal</div>
                     <textarea class="antwort-input" id="junior-q12-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -958,6 +971,7 @@
                 <div class="frage-container">
                     <h4>Frage 13 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Ab wann spricht man von einer Geiselnahme?</p>
+                    <div class="info-box">Korrekte Antwort: Sobald Forderungen für Personen gestellt werden</div>
                     <textarea class="antwort-input" id="junior-q13-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -970,6 +984,7 @@
                 <div class="frage-container">
                     <h4>Frage 14 <span class="punkte-badge">1 Punkt</span></h4>
                     <p>Was muss ich im Funk durchgeben, wenn ich auf Streife fahre?</p>
+                    <div class="info-box">Korrekte Antwort: Adam xxx Code 1</div>
                     <textarea class="antwort-input" id="junior-q14-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -982,6 +997,7 @@
                 <div class="frage-container">
                     <h4>Frage 15 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Wichtige Infos bei 11-90 oder 11-99?</p>
+                    <div class="info-box">Korrekte Antwort: W-Fragen: Wo, Wer, Wie viele</div>
                     <textarea class="antwort-input" id="junior-q15-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -994,6 +1010,7 @@
                 <div class="frage-container">
                     <h4>Frage 16 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Welche Anforderungen gelten für Fahrzeuge, die im Streifendienst eingesetzt werden?</p>
+                    <div class="info-box">Korrekte Antwort: Nur zugelassene Fuhrparkfahrzeuge, mindestens 4-Sitzer, technisch einwandfrei</div>
                     <textarea class="antwort-input" id="junior-q16-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -1006,6 +1023,7 @@
                 <div class="frage-container">
                     <h4>Frage 17 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Wann ist die Dienstpflicht?</p>
+                    <div class="info-box">Korrekte Antwort: 18:00 Uhr bis 00:00 Uhr</div>
                     <textarea class="antwort-input" id="junior-q17-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -1018,6 +1036,7 @@
                 <div class="frage-container">
                     <h4>Frage 18 <span class="punkte-badge">1 Punkt</span></h4>
                     <p>Wo werden Nagelbänder und Barrikaden platziert?</p>
+                    <div class="info-box">Korrekte Antwort: In Sperrzonen</div>
                     <textarea class="antwort-input" id="junior-q18-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -1030,6 +1049,7 @@
                 <div class="frage-container">
                     <h4>Frage 19 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Was ist beim Anlegen der Handschellen eines Tatverdächtigen zu beachten?</p>
+                    <div class="info-box">Korrekte Antwort: Gefesselt von hinten/vorne, Tackeln nur bei Flucht</div>
                     <textarea class="antwort-input" id="junior-q19-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -1042,6 +1062,7 @@
                 <div class="frage-container">
                     <h4>Frage 20 <span class="punkte-badge">1 Punkt</span></h4>
                     <p>Stärkste Waffe im Dienst zur Deeskalation?</p>
+                    <div class="info-box">Korrekte Antwort: Kommunikation</div>
                     <textarea class="antwort-input" id="junior-q20-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -1054,6 +1075,7 @@
                 <div class="frage-container">
                     <h4>Frage 21 <span class="punkte-badge">4 Punkte</span></h4>
                     <p>Erläutern Sie die Funkcodes: Code 5, Code 7, Code 2, 11-90</p>
+                    <div class="info-box">Korrekte Antwort: Ermittlungen, Anfahrt zum SG, Anfahrt ohne Signale, Officer in Bedrängnis</div>
                     <textarea class="antwort-input" id="junior-q21-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -1066,6 +1088,7 @@
                 <div class="frage-container">
                     <h4>Frage 22 <span class="punkte-badge">1 Punkt</span></h4>
                     <p>Wann darf auf Reifen geschossen werden?</p>
+                    <div class="info-box">Korrekte Antwort: Wenn der TV über Berge fährt (unrealistisches Fahren)</div>
                     <textarea class="antwort-input" id="junior-q22-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -1078,6 +1101,7 @@
                 <div class="frage-container">
                     <h4>Frage 23 <span class="punkte-badge">2 Punkte</span></h4>
                     <p>Wann wird der Waffenschein entzogen?</p>
+                    <div class="info-box">Korrekte Antwort: Bei Straftat mit Waffengebrauch legaler/illegaler Waffe</div>
                     <textarea class="antwort-input" id="junior-q23-antwort" placeholder="Antwort eingeben..." onchange="saveJuniorData()"></textarea>
                     <div class="punkte-vergabe">
                         <label>Punkte:</label>
@@ -1171,7 +1195,7 @@
         <div id="officer-pruefung" class="tab-content">
             <div class="pruefung-section">
                 <h2>Officer Prüfung</h2>
-                <p>Verhandlungsführung (10 P.) + Einsatzleitung (10 P.) + Einsatzbericht (10 P.) = 30 Punkte | Bestanden ab 25 Punkte (Note 2)</p>
+                <p>Theorie (13 P.) + Verhandlung (10 P.) + Einsatzleitung (10 P.) + Inhaftierung (9 P.) + Einsatzbericht (8 P.) = 50 Punkte | Bestanden ab 40 Punkte (Note 2)</p>
 
                 <div class="azubi-info">
                     <div class="azubi-field">
@@ -1193,12 +1217,80 @@
                 </div>
 
                 <div class="notenspiegel">
-                    <div class="note-item"><div class="note-zahl">1</div><div class="note-text">28-30 Punkte</div></div>
-                    <div class="note-item highlight"><div class="note-zahl">2</div><div class="note-text">25-27 Punkte</div></div>
-                    <div class="note-item"><div class="note-zahl">3</div><div class="note-text">22-24 Punkte</div></div>
-                    <div class="note-item"><div class="note-zahl">4</div><div class="note-text">19-21 Punkte</div></div>
-                    <div class="note-item"><div class="note-zahl">5</div><div class="note-text">16-18 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">1</div><div class="note-text">48-50 Punkte</div></div>
+                    <div class="note-item highlight"><div class="note-zahl">2</div><div class="note-text">40-47 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">3</div><div class="note-text">33-39 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">4</div><div class="note-text">25-32 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">5</div><div class="note-text">15-24 Punkte</div></div>
                     <div class="note-item"><div class="note-zahl">6</div><div class="note-text">&lt;15 Punkte</div></div>
+                </div>
+
+                <h3>THEORIETEIL (13 Punkte)</h3>
+
+                <div class="frage-container">
+                    <h4>1. Wie groß dürfen Sperrzonen für kleine Räube sein? Wie groß für Bank und Juwelier? <span class="punkte-badge">3 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: Kleine Räube 40-80m | Bank 60-120m | Juwelier 60-120m</div>
+                    <textarea class="antwort-input" id="officer-t1-antwort" placeholder="Antwort des Azubis..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-t1-punkte" min="0" max="3" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 3</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>2. Wer hat die oberste Befehlsmacht in einem Einsatz? <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="info-box">Korrekte Antwort: Die Einsatzleitung</div>
+                    <textarea class="antwort-input" id="officer-t2-antwort" placeholder="Antwort des Azubis..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-t2-punkte" min="0" max="1" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>3. Wie positionieren sich EL und VH? <span class="punkte-badge">2 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: In sicherem Abstand zu den TVs, hinter ihrem Fahrzeug</div>
+                    <textarea class="antwort-input" id="officer-t3-antwort" placeholder="Antwort des Azubis..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-t3-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>4. Das maximale Lösegeld für eine Geisel ist? <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="info-box">Korrekte Antwort: 7.500$ (mit Absprache der LE möglich mehr)</div>
+                    <textarea class="antwort-input" id="officer-t4-antwort" placeholder="Antwort des Azubis..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-t4-punkte" min="0" max="1" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>5. Was muss man beachten, wenn das LSPD die Judikative übernimmt? <span class="punkte-badge">2 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: 90% der Haftstrafe, 100% der Geldstrafe</div>
+                    <textarea class="antwort-input" id="officer-t5-antwort" placeholder="Antwort des Azubis..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-t5-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>6. Wie verhalte ich mich bei Ladenraub als 10-05 (Verstärkung)? <span class="punkte-badge">4 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: Vorsichtige, zügige Anfahrt; keine voreiligen Maßnahmen; Befehle von EL; Tatortabsicherung</div>
+                    <textarea class="antwort-input" id="officer-t6-antwort" placeholder="Antwort des Azubis..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-t6-punkte" min="0" max="4" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 4</span>
+                    </div>
                 </div>
 
                 <h3>PRAXISTEIL: VERHANDLUNGSFÜHRUNG (10 Punkte)</h3>
@@ -1305,7 +1397,59 @@
                     </div>
                 </div>
 
-                <h3>THEORIETEIL: EINSATZBERICHT (10 Punkte)</h3>
+                <h3>PRAXISTEIL: INHAFTIERUNG (9 Punkte)</h3>
+
+                <div class="frage-container">
+                    <h4>1. Rechte korrekt vorgelesen <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-i1-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-i1-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>2. Durchsuchung korrekt durchgeführt <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-i2-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-i2-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>3. Straftatenrechner korrekt verwendet <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-i3-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-i3-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>4. Urteil korrekt verkündet <span class="punkte-badge">2 Punkte</span></h4>
+                    <textarea class="antwort-input" id="officer-i4-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-i4-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>5. Akte korrekt geschrieben <span class="punkte-badge">1 Punkt</span></h4>
+                    <textarea class="antwort-input" id="officer-i5-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="officer-i5-punkte" min="0" max="1" value="0" onchange="berechneOfficerPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <h3>EINSATZBERICHT (8 Punkte)</h3>
 
                 <div class="frage-container">
                     <h4>1. Vorlage für Einsatzbericht verwendet <span class="punkte-badge">2 Punkte</span></h4>
@@ -1347,20 +1491,10 @@
                     </div>
                 </div>
 
-                <div class="frage-container">
-                    <h4>5. Einsatzbericht korrekt mit Behörden geteilt <span class="punkte-badge">2 Punkte</span></h4>
-                    <textarea class="antwort-input" id="officer-b5-notizen" placeholder="Notizen zur Bewertung..." onchange="saveOfficerData()"></textarea>
-                    <div class="punkte-vergabe">
-                        <label>Punkte:</label>
-                        <input type="number" class="punkte-input" id="officer-b5-punkte" min="0" max="2" value="0" onchange="berechneOfficerPunkte()">
-                        <span>/ 2</span>
-                    </div>
-                </div>
-
                 <!-- Ergebnis Box -->
                 <div class="ergebnis-box" id="officer-ergebnis">
                     <h3>Prüfungsergebnis</h3>
-                    <div class="ergebnis-punkte" id="officer-gesamt-punkte">0 / 30</div>
+                    <div class="ergebnis-punkte" id="officer-gesamt-punkte">0 / 50</div>
                     <div class="ergebnis-note" id="officer-note">Note: -</div>
                 </div>
 
@@ -1368,6 +1502,312 @@
                     <button class="btn btn-success" onclick="berechneOfficerPunkte()">Auswerten</button>
                     <button class="btn btn-danger" onclick="resetOfficerPruefung()">Prüfung zurücksetzen</button>
                     <button class="btn btn-primary" onclick="exportOfficerPDF()">Ergebnis exportieren</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- WIEDEREINSTEIGER PRÜFUNG TAB -->
+        <div id="wiedereinsteiger-pruefung" class="tab-content">
+            <div class="pruefung-section">
+                <h2>Wiedereinsteiger Prüfung</h2>
+                <p>Theorie (13 P.) + Funk (10 P.) + Gesetze (10 P.) + Einsatzbericht (25 P.) + Praxis (8 P.) = 66 Punkte | Bestanden ab 56 Punkte (Note 2)</p>
+
+                <div class="azubi-info">
+                    <div class="azubi-field">
+                        <label>Wiedereinsteiger (Name)</label>
+                        <input type="text" id="wieder-azubi-name" placeholder="Name des Wiedereinsteigers" onchange="saveWiederData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Dienstnummer</label>
+                        <input type="text" id="wieder-azubi-dn" placeholder="Dienstnummer" onchange="saveWiederData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Ausbilder (Name)</label>
+                        <input type="text" id="wieder-ausbilder-name" placeholder="Name des Ausbilders" onchange="saveWiederData()">
+                    </div>
+                    <div class="azubi-field">
+                        <label>Datum</label>
+                        <input type="date" id="wieder-datum" onchange="saveWiederData()">
+                    </div>
+                </div>
+
+                <div class="notenspiegel">
+                    <div class="note-item"><div class="note-zahl">1</div><div class="note-text">62-66 Punkte</div></div>
+                    <div class="note-item highlight"><div class="note-zahl">2</div><div class="note-text">56-61 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">3</div><div class="note-text">43-55 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">4</div><div class="note-text">33-42 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">5</div><div class="note-text">20-32 Punkte</div></div>
+                    <div class="note-item"><div class="note-zahl">6</div><div class="note-text">&lt;20 Punkte</div></div>
+                </div>
+
+                <h3>THEORIEFRAGEN (13 Punkte)</h3>
+
+                <div class="frage-container">
+                    <h4>1. Wie führst du eine Verkehrskontrolle durch? <span class="punkte-badge">4 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: 10-60 funken mit Streifen Name und Ortsangabe, Warten bis die Person ausgestiegen ist, Ausweis/Führerschein kontrollieren, Akte prüfen</div>
+                    <textarea class="antwort-input" id="wieder-t1-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-t1-punkte" min="0" max="4" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 4</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>2. Was ist bei der Tatort-Absicherung zu beachten? <span class="punkte-badge">3 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: Infos über TV, Fluchtfahrzeug, Geiseln kurz funken, Umgebung beachten, klare Befehle geben</div>
+                    <textarea class="antwort-input" id="wieder-t2-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-t2-punkte" min="0" max="3" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 3</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>3. Wie groß darf eine Streife sein und ab welchem Rang darf man diese führen? <span class="punkte-badge">2 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: Max. 3 Personen, ab Rang 3 (Officer) mit Rekruten und Junior Officer</div>
+                    <textarea class="antwort-input" id="wieder-t3-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-t3-punkte" min="0" max="2" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>4. Was muss man beachten, wenn das LSPD die Judikative übernimmt? <span class="punkte-badge">2 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: 90% der Haftstrafe, 100% der Geldstrafe</div>
+                    <textarea class="antwort-input" id="wieder-t4-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-t4-punkte" min="0" max="2" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>5. Wie gehst du vor, wenn du einen TV festnehmen willst? (bzgl. DOJ) <span class="punkte-badge">2 Punkte</span></h4>
+                    <div class="info-box">Korrekte Antwort: Zuerst DOJ anrufen, Richter im Staat? Falls nein, Judikative übernehmen</div>
+                    <textarea class="antwort-input" id="wieder-t5-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-t5-punkte" min="0" max="2" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 2</span>
+                    </div>
+                </div>
+
+                <h3>FUNKABFRAGE (10 Punkte)</h3>
+                <p class="info-box">10 Funk-Codes abfragen - 1 Punkt pro korrektem Code</p>
+
+                <div class="frage-container">
+                    <h4>Funk-Codes Abfrage <span class="punkte-badge">10 Punkte</span></h4>
+                    <textarea class="antwort-input" id="wieder-funk-notizen" placeholder="Notizen zu den abgefragten Codes..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-funk-punkte" min="0" max="10" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 10</span>
+                    </div>
+                </div>
+
+                <h3>SITUATIONSFRAGEN (Qualitative Bewertung)</h3>
+                <div class="info-box warning">Achtung: Bei kompletter Nichtübereinstimmung mit der Musterlösung = Durchfall!</div>
+
+                <div class="frage-container">
+                    <h4>Szenario 1: Partner wird während einer 10-60 schwer verletzt</h4>
+                    <div class="info-box">Erwartete Reaktion: Sofort 11-99 funken, Kollegen sichern, Medical hinzurufen</div>
+                    <textarea class="antwort-input" id="wieder-s1-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Bestanden:</label>
+                        <select id="wieder-s1-bestanden" onchange="saveWiederData()">
+                            <option value="ja">Ja</option>
+                            <option value="nein">Nein</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>Szenario 2: Alleinige Streife bei aktiver 10-80 mit flüchtenden Tätern</h4>
+                    <div class="info-box">Erwartete Reaktion: Funken dass aktive 10-80 stattfindet und 2 weitere 10-05 benötigt werden</div>
+                    <textarea class="antwort-input" id="wieder-s2-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Bestanden:</label>
+                        <select id="wieder-s2-bestanden" onchange="saveWiederData()">
+                            <option value="ja">Ja</option>
+                            <option value="nein">Nein</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>Szenario 3: Familienmitglied ist bei einem Bankraub beteiligt</h4>
+                    <div class="info-box">Akzeptable Reaktion: Entweder Einsatzleitung mit Objektivität übernehmen oder ablehnen mit Vertrauensbegründung in Kollegen</div>
+                    <textarea class="antwort-input" id="wieder-s3-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Bestanden:</label>
+                        <select id="wieder-s3-bestanden" onchange="saveWiederData()">
+                            <option value="ja">Ja</option>
+                            <option value="nein">Nein</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3>GESETZFRAGEN (10 Punkte)</h3>
+
+                <div class="frage-container">
+                    <h4>1. Ab wann gilt Widerstand gegen Vollstreckungsbeamte? <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="info-box">Korrekte Antwort: Sobald TV versucht gewaltsam zu flüchten</div>
+                    <textarea class="antwort-input" id="wieder-g1-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-g1-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>2. Welche Waffen sind legal/illegal? <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="info-box">Korrekte Antwort: Alle Waffen außer SNS Pistole sind illegal</div>
+                    <textarea class="antwort-input" id="wieder-g2-antwort" placeholder="Antwort des Wiedereinsteigers..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-g2-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>3. Durchsuchungsgegenstände und Gesetzesverstöße bestimmen <span class="punkte-badge">8 Punkte</span></h4>
+                    <div class="info-box">Beispiel: Handy, GPS, WM Pistole, 22 Salmiak, 2000$ Schwarzgeld = Illegale Handfeuerwaffe, illegale Substanzen &lt;100 Einheiten, nicht-offizielle Geldmittel</div>
+                    <textarea class="antwort-input" id="wieder-g3-antwort" placeholder="Gefundene Gegenstände und erkannte Verstöße..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-g3-punkte" min="0" max="8" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 8</span>
+                    </div>
+                </div>
+
+                <h3>EINSATZBERICHT (25 Punkte)</h3>
+                <p class="info-box">Pro erwähntes Gesetz: 0,5P (+ 0,5P bei Vorfallsbeschreibung) | Pro konfiszierter Gegenstand: 1P | Vorfallsbeschreibung: max. 10P</p>
+
+                <div class="frage-container">
+                    <h4>Gesetze korrekt erwähnt <span class="punkte-badge">max. 5 Punkte</span></h4>
+                    <textarea class="antwort-input" id="wieder-eb1-notizen" placeholder="Welche Gesetze wurden erwähnt..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-eb1-punkte" min="0" max="5" step="0.5" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 5</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>Konfiszierte Gegenstände dokumentiert <span class="punkte-badge">max. 10 Punkte</span></h4>
+                    <textarea class="antwort-input" id="wieder-eb2-notizen" placeholder="Welche Gegenstände wurden dokumentiert..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-eb2-punkte" min="0" max="10" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 10</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>Vorfallsbeschreibung (Beschreibung 3P, Sauberkeit 2P, Ort 2P, Urteil 2P, Perfektion 1P) <span class="punkte-badge">max. 10 Punkte</span></h4>
+                    <textarea class="antwort-input" id="wieder-eb3-notizen" placeholder="Bewertung der Vorfallsbeschreibung..." onchange="saveWiederData()"></textarea>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-eb3-punkte" min="0" max="10" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 10</span>
+                    </div>
+                </div>
+
+                <h3>PRAXISTEIL: STRESS 10-60 (8 Punkte)</h3>
+
+                <div class="frage-container">
+                    <h4>1. Megafon korrekt eingesetzt <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-p1-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>2. Korrekte 10-60-Funkdurchgabe <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-p2-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>3. Richtiges Aussteigen nach TV <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-p3-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>4. Führerscheinkontrolle <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-p4-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>5. Personalausweiskontrolle <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-p5-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>6. Law-Net-Überprüfung <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-p6-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>7. Rechnungsüberprüfung <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-p7-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <div class="frage-container">
+                    <h4>8. Kennzeichenüberprüfung <span class="punkte-badge">1 Punkt</span></h4>
+                    <div class="punkte-vergabe">
+                        <label>Punkte:</label>
+                        <input type="number" class="punkte-input" id="wieder-p8-punkte" min="0" max="1" value="0" onchange="berechneWiederPunkte()">
+                        <span>/ 1</span>
+                    </div>
+                </div>
+
+                <!-- Ergebnis Box -->
+                <div class="ergebnis-box" id="wieder-ergebnis">
+                    <h3>Prüfungsergebnis</h3>
+                    <div class="ergebnis-punkte" id="wieder-gesamt-punkte">0 / 66</div>
+                    <div class="ergebnis-note" id="wieder-note">Note: -</div>
+                    <div id="wieder-situationen-warnung" style="display:none; color: #e74c3c; margin-top: 10px; font-weight: bold;">
+                        ACHTUNG: Situationsfrage(n) nicht bestanden - Prüfung nicht bestanden!
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="berechneWiederPunkte()">Auswerten</button>
+                    <button class="btn btn-danger" onclick="resetWiederPruefung()">Prüfung zurücksetzen</button>
+                    <button class="btn btn-primary" onclick="exportWiederPDF()">Ergebnis exportieren</button>
                 </div>
             </div>
         </div>
@@ -1627,9 +2067,16 @@
                 azubiDN: document.getElementById('officer-azubi-dn').value,
                 ausbilderName: document.getElementById('officer-ausbilder-name').value,
                 datum: document.getElementById('officer-datum').value,
+                theorie: {},
                 notizen: {},
                 punkte: {}
             };
+
+            // Theorie (6 Fragen)
+            for (let i = 1; i <= 6; i++) {
+                data.theorie['t' + i] = document.getElementById('officer-t' + i + '-antwort').value;
+                data.punkte['t' + i] = document.getElementById('officer-t' + i + '-punkte').value;
+            }
 
             // Verhandlung
             for (let i = 1; i <= 5; i++) {
@@ -1643,8 +2090,14 @@
                 data.punkte['e' + i] = document.getElementById('officer-e' + i + '-punkte').value;
             }
 
-            // Bericht
+            // Inhaftierung
             for (let i = 1; i <= 5; i++) {
+                data.notizen['i' + i] = document.getElementById('officer-i' + i + '-notizen').value;
+                data.punkte['i' + i] = document.getElementById('officer-i' + i + '-punkte').value;
+            }
+
+            // Bericht (4 Fragen)
+            for (let i = 1; i <= 4; i++) {
                 data.notizen['b' + i] = document.getElementById('officer-b' + i + '-notizen').value;
                 data.punkte['b' + i] = document.getElementById('officer-b' + i + '-punkte').value;
             }
@@ -1654,6 +2107,11 @@
 
         function berechneOfficerPunkte() {
             let gesamt = 0;
+
+            // Theorie (6 Fragen)
+            for (let i = 1; i <= 6; i++) {
+                gesamt += parseInt(document.getElementById('officer-t' + i + '-punkte').value) || 0;
+            }
 
             // Verhandlung
             for (let i = 1; i <= 5; i++) {
@@ -1665,20 +2123,25 @@
                 gesamt += parseInt(document.getElementById('officer-e' + i + '-punkte').value) || 0;
             }
 
-            // Bericht
+            // Inhaftierung
             for (let i = 1; i <= 5; i++) {
+                gesamt += parseInt(document.getElementById('officer-i' + i + '-punkte').value) || 0;
+            }
+
+            // Bericht (4 Fragen)
+            for (let i = 1; i <= 4; i++) {
                 gesamt += parseInt(document.getElementById('officer-b' + i + '-punkte').value) || 0;
             }
 
-            document.getElementById('officer-gesamt-punkte').textContent = gesamt + ' / 30';
+            document.getElementById('officer-gesamt-punkte').textContent = gesamt + ' / 50';
 
-            // Note berechnen
+            // Note berechnen (neuer Notenspiegel)
             let note, noteText, bestanden;
-            if (gesamt >= 28) { note = 1; noteText = 'sehr gut'; bestanden = true; }
-            else if (gesamt >= 25) { note = 2; noteText = 'gut'; bestanden = true; }
-            else if (gesamt >= 22) { note = 3; noteText = 'befriedigend'; bestanden = false; }
-            else if (gesamt >= 19) { note = 4; noteText = 'ausreichend'; bestanden = false; }
-            else if (gesamt >= 16) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
+            if (gesamt >= 48) { note = 1; noteText = 'sehr gut'; bestanden = true; }
+            else if (gesamt >= 40) { note = 2; noteText = 'gut'; bestanden = true; }
+            else if (gesamt >= 33) { note = 3; noteText = 'befriedigend'; bestanden = false; }
+            else if (gesamt >= 25) { note = 4; noteText = 'ausreichend'; bestanden = false; }
+            else if (gesamt >= 15) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
             else { note = 6; noteText = 'ungenügend'; bestanden = false; }
 
             const noteDiv = document.getElementById('officer-note');
@@ -1697,16 +2160,197 @@
                 document.getElementById('officer-ausbilder-name').value = '';
                 document.getElementById('officer-datum').value = '';
 
+                // Theorie
+                for (let i = 1; i <= 6; i++) {
+                    document.getElementById('officer-t' + i + '-antwort').value = '';
+                    document.getElementById('officer-t' + i + '-punkte').value = 0;
+                }
+
+                // Verhandlung
                 for (let i = 1; i <= 5; i++) {
                     document.getElementById('officer-v' + i + '-notizen').value = '';
                     document.getElementById('officer-v' + i + '-punkte').value = 0;
+                }
+
+                // Einsatzleitung
+                for (let i = 1; i <= 5; i++) {
                     document.getElementById('officer-e' + i + '-notizen').value = '';
                     document.getElementById('officer-e' + i + '-punkte').value = 0;
+                }
+
+                // Inhaftierung
+                for (let i = 1; i <= 5; i++) {
+                    document.getElementById('officer-i' + i + '-notizen').value = '';
+                    document.getElementById('officer-i' + i + '-punkte').value = 0;
+                }
+
+                // Bericht
+                for (let i = 1; i <= 4; i++) {
                     document.getElementById('officer-b' + i + '-notizen').value = '';
                     document.getElementById('officer-b' + i + '-punkte').value = 0;
                 }
 
                 berechneOfficerPunkte();
+            }
+        }
+
+        // Wiedereinsteiger Prüfung
+        function saveWiederData() {
+            const data = {
+                azubiName: document.getElementById('wieder-azubi-name').value,
+                azubiDN: document.getElementById('wieder-azubi-dn').value,
+                ausbilderName: document.getElementById('wieder-ausbilder-name').value,
+                datum: document.getElementById('wieder-datum').value,
+                theorie: {},
+                situationen: {},
+                gesetze: {},
+                einsatzbericht: {},
+                praxis: {},
+                funk: {},
+                punkte: {}
+            };
+
+            // Theorie (5 Fragen)
+            for (let i = 1; i <= 5; i++) {
+                data.theorie['t' + i] = document.getElementById('wieder-t' + i + '-antwort').value;
+                data.punkte['t' + i] = document.getElementById('wieder-t' + i + '-punkte').value;
+            }
+
+            // Funk
+            data.funk.notizen = document.getElementById('wieder-funk-notizen').value;
+            data.punkte.funk = document.getElementById('wieder-funk-punkte').value;
+
+            // Situationen (3 Szenarien)
+            for (let i = 1; i <= 3; i++) {
+                data.situationen['s' + i] = document.getElementById('wieder-s' + i + '-antwort').value;
+                data.situationen['s' + i + '_bestanden'] = document.getElementById('wieder-s' + i + '-bestanden').value;
+            }
+
+            // Gesetze (3 Fragen)
+            for (let i = 1; i <= 3; i++) {
+                data.gesetze['g' + i] = document.getElementById('wieder-g' + i + '-antwort').value;
+                data.punkte['g' + i] = document.getElementById('wieder-g' + i + '-punkte').value;
+            }
+
+            // Einsatzbericht (3 Kriterien)
+            for (let i = 1; i <= 3; i++) {
+                data.einsatzbericht['eb' + i] = document.getElementById('wieder-eb' + i + '-notizen').value;
+                data.punkte['eb' + i] = document.getElementById('wieder-eb' + i + '-punkte').value;
+            }
+
+            // Praxis (8 Kriterien)
+            for (let i = 1; i <= 8; i++) {
+                data.punkte['p' + i] = document.getElementById('wieder-p' + i + '-punkte').value;
+            }
+
+            localStorage.setItem('wiederPruefung', JSON.stringify(data));
+        }
+
+        function berechneWiederPunkte() {
+            let gesamt = 0;
+
+            // Theorie (5 Fragen)
+            for (let i = 1; i <= 5; i++) {
+                gesamt += parseFloat(document.getElementById('wieder-t' + i + '-punkte').value) || 0;
+            }
+
+            // Funk
+            gesamt += parseFloat(document.getElementById('wieder-funk-punkte').value) || 0;
+
+            // Gesetze (3 Fragen)
+            for (let i = 1; i <= 3; i++) {
+                gesamt += parseFloat(document.getElementById('wieder-g' + i + '-punkte').value) || 0;
+            }
+
+            // Einsatzbericht (3 Kriterien)
+            for (let i = 1; i <= 3; i++) {
+                gesamt += parseFloat(document.getElementById('wieder-eb' + i + '-punkte').value) || 0;
+            }
+
+            // Praxis (8 Kriterien)
+            for (let i = 1; i <= 8; i++) {
+                gesamt += parseFloat(document.getElementById('wieder-p' + i + '-punkte').value) || 0;
+            }
+
+            // Situationen prüfen
+            let situationenBestanden = true;
+            for (let i = 1; i <= 3; i++) {
+                if (document.getElementById('wieder-s' + i + '-bestanden').value === 'nein') {
+                    situationenBestanden = false;
+                    break;
+                }
+            }
+
+            document.getElementById('wieder-gesamt-punkte').textContent = gesamt + ' / 66';
+
+            // Note berechnen
+            let note, noteText, bestanden;
+            if (gesamt >= 62) { note = 1; noteText = 'sehr gut'; bestanden = true; }
+            else if (gesamt >= 56) { note = 2; noteText = 'gut'; bestanden = true; }
+            else if (gesamt >= 43) { note = 3; noteText = 'befriedigend'; bestanden = false; }
+            else if (gesamt >= 33) { note = 4; noteText = 'ausreichend'; bestanden = false; }
+            else if (gesamt >= 20) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
+            else { note = 6; noteText = 'ungenügend'; bestanden = false; }
+
+            // Situationen nicht bestanden = automatisch durchgefallen
+            if (!situationenBestanden) {
+                bestanden = false;
+                document.getElementById('wieder-situationen-warnung').style.display = 'block';
+            } else {
+                document.getElementById('wieder-situationen-warnung').style.display = 'none';
+            }
+
+            const noteDiv = document.getElementById('wieder-note');
+            noteDiv.textContent = 'Note: ' + note + ' (' + noteText + ') - ' + (bestanden ? 'BESTANDEN' : 'NICHT BESTANDEN');
+            noteDiv.className = 'ergebnis-note ' + (bestanden ? 'note-bestanden' : 'note-nicht-bestanden');
+
+            saveWiederData();
+        }
+
+        function resetWiederPruefung() {
+            if (confirm('Wirklich alle Wiedereinsteiger Prüfungsdaten zurücksetzen?')) {
+                localStorage.removeItem('wiederPruefung');
+
+                document.getElementById('wieder-azubi-name').value = '';
+                document.getElementById('wieder-azubi-dn').value = '';
+                document.getElementById('wieder-ausbilder-name').value = '';
+                document.getElementById('wieder-datum').value = '';
+
+                // Theorie
+                for (let i = 1; i <= 5; i++) {
+                    document.getElementById('wieder-t' + i + '-antwort').value = '';
+                    document.getElementById('wieder-t' + i + '-punkte').value = 0;
+                }
+
+                // Funk
+                document.getElementById('wieder-funk-notizen').value = '';
+                document.getElementById('wieder-funk-punkte').value = 0;
+
+                // Situationen
+                for (let i = 1; i <= 3; i++) {
+                    document.getElementById('wieder-s' + i + '-antwort').value = '';
+                    document.getElementById('wieder-s' + i + '-bestanden').value = 'ja';
+                }
+
+                // Gesetze
+                for (let i = 1; i <= 3; i++) {
+                    document.getElementById('wieder-g' + i + '-antwort').value = '';
+                    document.getElementById('wieder-g' + i + '-punkte').value = 0;
+                }
+
+                // Einsatzbericht
+                for (let i = 1; i <= 3; i++) {
+                    document.getElementById('wieder-eb' + i + '-notizen').value = '';
+                    document.getElementById('wieder-eb' + i + '-punkte').value = 0;
+                }
+
+                // Praxis
+                for (let i = 1; i <= 8; i++) {
+                    document.getElementById('wieder-p' + i + '-punkte').value = 0;
+                }
+
+                document.getElementById('wieder-situationen-warnung').style.display = 'none';
+                berechneWiederPunkte();
             }
         }
 
@@ -1748,18 +2392,98 @@
                 document.getElementById('officer-ausbilder-name').value = data.ausbilderName || '';
                 document.getElementById('officer-datum').value = data.datum || '';
 
+                // Theorie laden
+                if (data.theorie && data.punkte) {
+                    for (let i = 1; i <= 6; i++) {
+                        document.getElementById('officer-t' + i + '-antwort').value = data.theorie['t' + i] || '';
+                        document.getElementById('officer-t' + i + '-punkte').value = data.punkte['t' + i] || 0;
+                    }
+                }
+
                 if (data.notizen && data.punkte) {
+                    // Verhandlung
                     for (let i = 1; i <= 5; i++) {
                         document.getElementById('officer-v' + i + '-notizen').value = data.notizen['v' + i] || '';
                         document.getElementById('officer-v' + i + '-punkte').value = data.punkte['v' + i] || 0;
+                    }
+
+                    // Einsatzleitung
+                    for (let i = 1; i <= 5; i++) {
                         document.getElementById('officer-e' + i + '-notizen').value = data.notizen['e' + i] || '';
                         document.getElementById('officer-e' + i + '-punkte').value = data.punkte['e' + i] || 0;
+                    }
+
+                    // Inhaftierung
+                    for (let i = 1; i <= 5; i++) {
+                        document.getElementById('officer-i' + i + '-notizen').value = data.notizen['i' + i] || '';
+                        document.getElementById('officer-i' + i + '-punkte').value = data.punkte['i' + i] || 0;
+                    }
+
+                    // Bericht
+                    for (let i = 1; i <= 4; i++) {
                         document.getElementById('officer-b' + i + '-notizen').value = data.notizen['b' + i] || '';
                         document.getElementById('officer-b' + i + '-punkte').value = data.punkte['b' + i] || 0;
                     }
                 }
 
                 berechneOfficerPunkte();
+            }
+
+            // Wiedereinsteiger Prüfung laden
+            const wiederData = localStorage.getItem('wiederPruefung');
+            if (wiederData) {
+                const data = JSON.parse(wiederData);
+                document.getElementById('wieder-azubi-name').value = data.azubiName || '';
+                document.getElementById('wieder-azubi-dn').value = data.azubiDN || '';
+                document.getElementById('wieder-ausbilder-name').value = data.ausbilderName || '';
+                document.getElementById('wieder-datum').value = data.datum || '';
+
+                // Theorie laden
+                if (data.theorie && data.punkte) {
+                    for (let i = 1; i <= 5; i++) {
+                        document.getElementById('wieder-t' + i + '-antwort').value = data.theorie['t' + i] || '';
+                        document.getElementById('wieder-t' + i + '-punkte').value = data.punkte['t' + i] || 0;
+                    }
+                }
+
+                // Funk laden
+                if (data.funk) {
+                    document.getElementById('wieder-funk-notizen').value = data.funk.notizen || '';
+                    document.getElementById('wieder-funk-punkte').value = data.punkte?.funk || 0;
+                }
+
+                // Situationen laden
+                if (data.situationen) {
+                    for (let i = 1; i <= 3; i++) {
+                        document.getElementById('wieder-s' + i + '-antwort').value = data.situationen['s' + i] || '';
+                        document.getElementById('wieder-s' + i + '-bestanden').value = data.situationen['s' + i + '_bestanden'] || 'ja';
+                    }
+                }
+
+                // Gesetze laden
+                if (data.gesetze && data.punkte) {
+                    for (let i = 1; i <= 3; i++) {
+                        document.getElementById('wieder-g' + i + '-antwort').value = data.gesetze['g' + i] || '';
+                        document.getElementById('wieder-g' + i + '-punkte').value = data.punkte['g' + i] || 0;
+                    }
+                }
+
+                // Einsatzbericht laden
+                if (data.einsatzbericht && data.punkte) {
+                    for (let i = 1; i <= 3; i++) {
+                        document.getElementById('wieder-eb' + i + '-notizen').value = data.einsatzbericht['eb' + i] || '';
+                        document.getElementById('wieder-eb' + i + '-punkte').value = data.punkte['eb' + i] || 0;
+                    }
+                }
+
+                // Praxis laden
+                if (data.punkte) {
+                    for (let i = 1; i <= 8; i++) {
+                        document.getElementById('wieder-p' + i + '-punkte').value = data.punkte['p' + i] || 0;
+                    }
+                }
+
+                berechneWiederPunkte();
             }
         }
 
@@ -1768,6 +2492,7 @@
             const data = {
                 juniorPruefung: localStorage.getItem('juniorPruefung'),
                 officerPruefung: localStorage.getItem('officerPruefung'),
+                wiederPruefung: localStorage.getItem('wiederPruefung'),
                 exportDate: new Date().toISOString()
             };
 
@@ -1797,6 +2522,10 @@
 
                         if (data.officerPruefung) {
                             localStorage.setItem('officerPruefung', data.officerPruefung);
+                        }
+
+                        if (data.wiederPruefung) {
+                            localStorage.setItem('wiederPruefung', data.wiederPruefung);
                         }
 
                         loadAllData();
@@ -2002,91 +2731,141 @@
             y += 10;
             doc.line(20, y, 190, y);
 
-            let verhandlung = 0, einsatz = 0, bericht = 0;
+            let theorie = 0, verhandlung = 0, einsatz = 0, inhaftierung = 0, bericht = 0;
 
-            // Verhandlungsführung
-            y += 10;
+            // Theorieteil
+            y += 8;
             doc.setFontSize(12);
             doc.setTextColor(74, 144, 217);
-            doc.text('VERHANDLUNGSFÜHRUNG', 20, y);
+            doc.text('THEORIETEIL (13 Punkte)', 20, y);
 
-            doc.setFontSize(10);
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            const tItems = [
+                {name: 'Sperrzonen', max: 3},
+                {name: 'Befehlsmacht', max: 1},
+                {name: 'Positionierung EL/VH', max: 2},
+                {name: 'Max. Lösegeld', max: 1},
+                {name: 'LSPD Judikative', max: 2},
+                {name: 'Verhalten 10-05', max: 4}
+            ];
+            y += 6;
+            for (let i = 1; i <= 6; i++) {
+                const p = parseInt(data.punkte?.['t' + i]) || 0;
+                theorie += p;
+                doc.text(tItems[i-1].name + ': ' + p + '/' + tItems[i-1].max + ' P.', 20, y);
+                y += 4;
+            }
+
+            // Verhandlungsführung
+            y += 4;
+            doc.setFontSize(12);
+            doc.setTextColor(74, 144, 217);
+            doc.text('VERHANDLUNGSFÜHRUNG (10 Punkte)', 20, y);
+
+            doc.setFontSize(9);
             doc.setTextColor(0, 0, 0);
             const vItems = ['Ruhiges Auftreten', 'Gesprächsführung', 'Forderungspriorisierung', 'Geiselsicherung', 'Rücksprache'];
-            y += 7;
+            y += 6;
             for (let i = 1; i <= 5; i++) {
                 const p = parseInt(data.punkte?.['v' + i]) || 0;
                 verhandlung += p;
                 doc.text(vItems[i-1] + ': ' + p + '/2 P.', 20, y);
-                y += 5;
+                y += 4;
             }
 
             // Einsatzleitung
-            y += 5;
+            y += 4;
             doc.setFontSize(12);
             doc.setTextColor(74, 144, 217);
-            doc.text('EINSATZLEITUNG', 20, y);
+            doc.text('EINSATZLEITUNG (10 Punkte)', 20, y);
 
-            doc.setFontSize(10);
+            doc.setFontSize(9);
             doc.setTextColor(0, 0, 0);
             const eItems = ['Lageeinschätzung', 'Koordination', 'Befehlskette', 'Kommunikation', 'Einsatzabschluss'];
-            y += 7;
+            y += 6;
             for (let i = 1; i <= 5; i++) {
                 const p = parseInt(data.punkte?.['e' + i]) || 0;
                 einsatz += p;
                 doc.text(eItems[i-1] + ': ' + p + '/2 P.', 20, y);
-                y += 5;
+                y += 4;
+            }
+
+            // Inhaftierung
+            y += 4;
+            doc.setFontSize(12);
+            doc.setTextColor(74, 144, 217);
+            doc.text('INHAFTIERUNG (9 Punkte)', 20, y);
+
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            const iItems = [
+                {name: 'Rechte vorlesen', max: 2},
+                {name: 'Durchsuchung', max: 2},
+                {name: 'Straftatenrechner', max: 2},
+                {name: 'Urteil verkündet', max: 2},
+                {name: 'Akte geschrieben', max: 1}
+            ];
+            y += 6;
+            for (let i = 1; i <= 5; i++) {
+                const p = parseInt(data.punkte?.['i' + i]) || 0;
+                inhaftierung += p;
+                doc.text(iItems[i-1].name + ': ' + p + '/' + iItems[i-1].max + ' P.', 20, y);
+                y += 4;
             }
 
             // Einsatzbericht
-            y += 5;
+            y += 4;
             doc.setFontSize(12);
             doc.setTextColor(74, 144, 217);
-            doc.text('EINSATZBERICHT', 20, y);
+            doc.text('EINSATZBERICHT (8 Punkte)', 20, y);
 
-            doc.setFontSize(10);
+            doc.setFontSize(9);
             doc.setTextColor(0, 0, 0);
-            const bItems = ['Vorlage verwendet', 'Korrekte Daten', 'Vorfallsbeschreibung', 'Dokumentation', 'Behördenteilung'];
-            y += 7;
-            for (let i = 1; i <= 5; i++) {
+            const bItems = ['Vorlage verwendet', 'Korrekte Daten', 'Vorfallsbeschreibung', 'Dokumentation'];
+            y += 6;
+            for (let i = 1; i <= 4; i++) {
                 const p = parseInt(data.punkte?.['b' + i]) || 0;
                 bericht += p;
                 doc.text(bItems[i-1] + ': ' + p + '/2 P.', 20, y);
-                y += 5;
+                y += 4;
             }
 
             // Ergebnis
-            const gesamt = verhandlung + einsatz + bericht;
-            y += 10;
+            const gesamt = theorie + verhandlung + einsatz + inhaftierung + bericht;
+            y += 8;
 
-            // Note berechnen
+            // Note berechnen (neuer Notenspiegel)
             let note, noteText, bestanden;
-            if (gesamt >= 28) { note = 1; noteText = 'sehr gut'; bestanden = true; }
-            else if (gesamt >= 25) { note = 2; noteText = 'gut'; bestanden = true; }
-            else if (gesamt >= 22) { note = 3; noteText = 'befriedigend'; bestanden = false; }
-            else if (gesamt >= 19) { note = 4; noteText = 'ausreichend'; bestanden = false; }
-            else if (gesamt >= 16) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
+            if (gesamt >= 48) { note = 1; noteText = 'sehr gut'; bestanden = true; }
+            else if (gesamt >= 40) { note = 2; noteText = 'gut'; bestanden = true; }
+            else if (gesamt >= 33) { note = 3; noteText = 'befriedigend'; bestanden = false; }
+            else if (gesamt >= 25) { note = 4; noteText = 'ausreichend'; bestanden = false; }
+            else if (gesamt >= 15) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
             else { note = 6; noteText = 'ungenügend'; bestanden = false; }
 
             // Ergebnis-Rahmen
             doc.setDrawColor(bestanden ? 46 : 231, bestanden ? 204 : 76, bestanden ? 113 : 60);
             doc.setFillColor(bestanden ? 240 : 255, bestanden ? 255 : 240, bestanden ? 240 : 240);
-            doc.roundedRect(20, y, 170, 50, 3, 3, 'FD');
+            doc.roundedRect(20, y, 170, 55, 3, 3, 'FD');
 
             doc.setFontSize(14);
             doc.setTextColor(0, 0, 0);
-            y += 12;
+            y += 10;
             doc.text('PRÜFUNGSERGEBNIS', 105, y, {align: 'center'});
 
-            doc.setFontSize(11);
-            y += 10;
-            doc.text('Verhandlung: ' + verhandlung + '/10 P.', 30, y);
-            doc.text('Einsatzleitung: ' + einsatz + '/10 P.', 80, y);
-            doc.text('Bericht: ' + bericht + '/10 P.', 140, y);
+            doc.setFontSize(9);
+            y += 8;
+            doc.text('Theorie: ' + theorie + '/13', 25, y);
+            doc.text('Verhandlung: ' + verhandlung + '/10', 60, y);
+            doc.text('Einsatzleitung: ' + einsatz + '/10', 100, y);
+            doc.text('Inhaftierung: ' + inhaftierung + '/9', 145, y);
+            y += 6;
+            doc.text('Einsatzbericht: ' + bericht + '/8', 25, y);
 
             y += 10;
             doc.setFontSize(16);
-            doc.text('GESAMT: ' + gesamt + '/30 Punkte', 105, y, {align: 'center'});
+            doc.text('GESAMT: ' + gesamt + '/50 Punkte', 105, y, {align: 'center'});
 
             y += 10;
             doc.setTextColor(bestanden ? 46 : 231, bestanden ? 204 : 76, bestanden ? 113 : 60);
@@ -2100,6 +2879,213 @@
 
             // PDF speichern
             doc.save('Officer_Prüfung_' + (data.azubiName || 'Unbekannt').replace(/\s/g, '_') + '_' + (data.datum || 'Datum') + '.pdf');
+        }
+
+        // PDF Export für Wiedereinsteiger Prüfung
+        function exportWiederPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const data = JSON.parse(localStorage.getItem('wiederPruefung') || '{}');
+
+            // Logo hinzufügen
+            try {
+                doc.addImage(LSPD_LOGO, 'PNG', 80, 10, 50, 50);
+            } catch(e) {
+                console.log('Logo konnte nicht geladen werden');
+            }
+
+            // Titel
+            doc.setFontSize(20);
+            doc.setTextColor(74, 144, 217);
+            doc.text('LSPD POLICE ACADEMY', 105, 70, {align: 'center'});
+
+            doc.setFontSize(16);
+            doc.setTextColor(0, 0, 0);
+            doc.text('Wiedereinsteiger Prüfung - Ergebnis', 105, 80, {align: 'center'});
+
+            // Trennlinie
+            doc.setDrawColor(74, 144, 217);
+            doc.setLineWidth(0.5);
+            doc.line(20, 85, 190, 85);
+
+            // Kandidaten-Info
+            doc.setFontSize(11);
+            let y = 95;
+            doc.text('Wiedereinsteiger: ' + (data.azubiName || '-'), 20, y);
+            doc.text('Dienstnummer: ' + (data.azubiDN || '-'), 120, y);
+            y += 8;
+            doc.text('Ausbilder: ' + (data.ausbilderName || '-'), 20, y);
+            doc.text('Datum: ' + (data.datum || '-'), 120, y);
+
+            // Trennlinie
+            y += 10;
+            doc.line(20, y, 190, y);
+
+            let theorie = 0, funk = 0, gesetze = 0, einsatzbericht = 0, praxis = 0;
+
+            // Theorieteil
+            y += 8;
+            doc.setFontSize(11);
+            doc.setTextColor(74, 144, 217);
+            doc.text('THEORIE (13 Punkte)', 20, y);
+
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            const tItems = [
+                {name: 'Verkehrskontrolle', max: 4},
+                {name: 'Tatort-Absicherung', max: 3},
+                {name: 'Streifengröße/Rang', max: 2},
+                {name: 'LSPD Judikative', max: 2},
+                {name: 'TV-Festnahme DOJ', max: 2}
+            ];
+            y += 5;
+            for (let i = 1; i <= 5; i++) {
+                const p = parseFloat(data.punkte?.['t' + i]) || 0;
+                theorie += p;
+                doc.text(tItems[i-1].name + ': ' + p + '/' + tItems[i-1].max + ' P.', 20, y);
+                y += 4;
+            }
+
+            // Funk
+            y += 3;
+            doc.setFontSize(11);
+            doc.setTextColor(74, 144, 217);
+            doc.text('FUNKABFRAGE (10 Punkte)', 20, y);
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            funk = parseFloat(data.punkte?.funk) || 0;
+            y += 5;
+            doc.text('Funk-Codes: ' + funk + '/10 P.', 20, y);
+
+            // Situationen
+            y += 6;
+            doc.setFontSize(11);
+            doc.setTextColor(74, 144, 217);
+            doc.text('SITUATIONSFRAGEN', 20, y);
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            y += 5;
+            let situationenBestanden = true;
+            for (let i = 1; i <= 3; i++) {
+                const bestanden = data.situationen?.['s' + i + '_bestanden'] === 'ja';
+                if (!bestanden) situationenBestanden = false;
+                doc.text('Szenario ' + i + ': ' + (bestanden ? 'Bestanden' : 'NICHT BESTANDEN'), 20, y);
+                y += 4;
+            }
+
+            // Gesetze
+            y += 3;
+            doc.setFontSize(11);
+            doc.setTextColor(74, 144, 217);
+            doc.text('GESETZFRAGEN (10 Punkte)', 20, y);
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            const gItems = [
+                {name: 'Widerstand', max: 1},
+                {name: 'Waffen legal/illegal', max: 1},
+                {name: 'Durchsuchung/Verstöße', max: 8}
+            ];
+            y += 5;
+            for (let i = 1; i <= 3; i++) {
+                const p = parseFloat(data.punkte?.['g' + i]) || 0;
+                gesetze += p;
+                doc.text(gItems[i-1].name + ': ' + p + '/' + gItems[i-1].max + ' P.', 20, y);
+                y += 4;
+            }
+
+            // Einsatzbericht
+            y += 3;
+            doc.setFontSize(11);
+            doc.setTextColor(74, 144, 217);
+            doc.text('EINSATZBERICHT (25 Punkte)', 20, y);
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            const ebItems = [
+                {name: 'Gesetze erwähnt', max: 5},
+                {name: 'Konfiszierte Gegenstände', max: 10},
+                {name: 'Vorfallsbeschreibung', max: 10}
+            ];
+            y += 5;
+            for (let i = 1; i <= 3; i++) {
+                const p = parseFloat(data.punkte?.['eb' + i]) || 0;
+                einsatzbericht += p;
+                doc.text(ebItems[i-1].name + ': ' + p + '/' + ebItems[i-1].max + ' P.', 20, y);
+                y += 4;
+            }
+
+            // Praxis
+            y += 3;
+            doc.setFontSize(11);
+            doc.setTextColor(74, 144, 217);
+            doc.text('PRAXIS: STRESS 10-60 (8 Punkte)', 20, y);
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+            y += 5;
+            for (let i = 1; i <= 8; i++) {
+                const p = parseFloat(data.punkte?.['p' + i]) || 0;
+                praxis += p;
+            }
+            doc.text('Praxis gesamt: ' + praxis + '/8 P.', 20, y);
+
+            // Ergebnis
+            const gesamt = theorie + funk + gesetze + einsatzbericht + praxis;
+            y += 10;
+
+            // Note berechnen
+            let note, noteText, bestanden;
+            if (gesamt >= 62) { note = 1; noteText = 'sehr gut'; bestanden = true; }
+            else if (gesamt >= 56) { note = 2; noteText = 'gut'; bestanden = true; }
+            else if (gesamt >= 43) { note = 3; noteText = 'befriedigend'; bestanden = false; }
+            else if (gesamt >= 33) { note = 4; noteText = 'ausreichend'; bestanden = false; }
+            else if (gesamt >= 20) { note = 5; noteText = 'mangelhaft'; bestanden = false; }
+            else { note = 6; noteText = 'ungenügend'; bestanden = false; }
+
+            // Situationen nicht bestanden = durchgefallen
+            if (!situationenBestanden) {
+                bestanden = false;
+            }
+
+            // Ergebnis-Rahmen
+            doc.setDrawColor(bestanden ? 46 : 231, bestanden ? 204 : 76, bestanden ? 113 : 60);
+            doc.setFillColor(bestanden ? 240 : 255, bestanden ? 255 : 240, bestanden ? 240 : 240);
+            doc.roundedRect(20, y, 170, 55, 3, 3, 'FD');
+
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            y += 10;
+            doc.text('PRÜFUNGSERGEBNIS', 105, y, {align: 'center'});
+
+            doc.setFontSize(9);
+            y += 8;
+            doc.text('Theorie: ' + theorie + '/13', 25, y);
+            doc.text('Funk: ' + funk + '/10', 55, y);
+            doc.text('Gesetze: ' + gesetze + '/10', 85, y);
+            doc.text('Bericht: ' + einsatzbericht + '/25', 120, y);
+            doc.text('Praxis: ' + praxis + '/8', 160, y);
+
+            y += 8;
+            if (!situationenBestanden) {
+                doc.setTextColor(231, 76, 60);
+                doc.text('SITUATIONSFRAGEN NICHT BESTANDEN!', 105, y, {align: 'center'});
+                doc.setTextColor(0, 0, 0);
+                y += 6;
+            }
+
+            doc.setFontSize(16);
+            doc.text('GESAMT: ' + gesamt + '/66 Punkte', 105, y, {align: 'center'});
+
+            y += 10;
+            doc.setTextColor(bestanden ? 46 : 231, bestanden ? 204 : 76, bestanden ? 113 : 60);
+            doc.setFontSize(14);
+            doc.text('Note: ' + note + ' (' + noteText + ') - ' + (bestanden ? 'BESTANDEN' : 'NICHT BESTANDEN'), 105, y, {align: 'center'});
+
+            // Fußzeile
+            doc.setFontSize(8);
+            doc.setTextColor(128, 128, 128);
+            doc.text('LSPD Police Academy - Prüfungsdokument', 105, 285, {align: 'center'});
+
+            // PDF speichern
+            doc.save('Wiedereinsteiger_Prüfung_' + (data.azubiName || 'Unbekannt').replace(/\s/g, '_') + '_' + (data.datum || 'Datum') + '.pdf');
         }
     </script>
 </body>

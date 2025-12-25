@@ -4,6 +4,7 @@ node_modules/
 # Build output (aber nicht die finale .exe)
 dist/win-unpacked/
 dist/builder-debug.yml
+dist/builder-effective-config.yaml
 build/
 out/
 
@@ -23,6 +24,7 @@ out/
 .DS_Store
 Thumbs.db
 desktop.ini
+nul
 
 # Logs
 *.log
